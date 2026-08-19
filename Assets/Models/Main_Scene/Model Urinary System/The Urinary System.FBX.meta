@@ -1,0 +1,656 @@
+fileFormatVersion: 2
+guid: 3b2ec8b2c3d710d44884268b7dbd964e
+ModelImporter:
+  serializedVersion: 20101
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: Birth 001
+  - first:
+      1: 100002
+    second: Circulatory_Arteries
+  - first:
+      1: 100004
+    second: Circulatory_Veins
+  - first:
+      1: 100006
+    second: Collision 001
+  - first:
+      1: 100008
+    second: Collision 002
+  - first:
+      1: 100010
+    second: Collision 003
+  - first:
+      1: 100012
+    second: Delete 001
+  - first:
+      1: 100014
+    second: Delete 002
+  - first:
+      1: 100016
+    second: Display 001
+  - first:
+      1: 100018
+    second: Display 002
+  - first:
+      1: 100020
+    second: Display 003
+  - first:
+      1: 100022
+    second: Display 008
+  - first:
+      1: 100024
+    second: Display 009
+  - first:
+      1: 100026
+    second: Event 001
+  - first:
+      1: 100028
+    second: Event 002
+  - first:
+      1: 100030
+    second: Event 003
+  - first:
+      1: 100032
+    second: Event 004
+  - first:
+      1: 100034
+    second: Material Static 002
+  - first:
+      1: 100036
+    second: Particle View 001
+  - first:
+      1: 100038
+    second: PF Arrow001
+  - first:
+      1: 100040
+    second: PF Arrow002
+  - first:
+      1: 100042
+    second: PF Arrow003
+  - first:
+      1: 100044
+    second: Position Icon 001
+  - first:
+      1: 100046
+    second: Render 002
+  - first:
+      1: 100048
+    second: Rotation 001
+  - first:
+      1: 100050
+    second: Shape Instance 001
+  - first:
+      1: 100052
+    second: Skeletal System_Low
+  - first:
+      1: 100054
+    second: Speed 001
+  - first:
+      1: 100056
+    second: Spin 001
+  - first:
+      1: 100058
+    second: //RootNode
+  - first:
+      1: 100060
+    second: Urinary System
+  - first:
+      1: 100062
+    second: Urinary_Bladder
+  - first:
+      1: 100064
+    second: UrinarySystem
+  - first:
+      1: 100066
+    second: Group001
+  - first:
+      1: 100068
+    second: Urethra
+  - first:
+      1: 100070
+    second: Arrows
+  - first:
+      1: 100072
+    second: Line001
+  - first:
+      1: 100074
+    second: Line002
+  - first:
+      1: 100076
+    second: Plane001
+  - first:
+      1: 100078
+    second: Plane002
+  - first:
+      1: 100080
+    second: Plane003
+  - first:
+      1: 100082
+    second: Plane004
+  - first:
+      1: 100084
+    second: Plane005
+  - first:
+      1: 100086
+    second: Plane006
+  - first:
+      1: 100088
+    second: Plane007
+  - first:
+      1: 100090
+    second: Plane008
+  - first:
+      1: 100092
+    second: Plane009
+  - first:
+      1: 100094
+    second: Plane010
+  - first:
+      1: 100096
+    second: Plane011
+  - first:
+      1: 100098
+    second: Plane012
+  - first:
+      1: 100100
+    second: Urinary System Group
+  - first:
+      1: 100102
+    second: The Urinary System
+  - first:
+      1: 100104
+    second: The two kidneys
+  - first:
+      1: 100106
+    second: The two ureters
+  - first:
+      4: 400000
+    second: Birth 001
+  - first:
+      4: 400002
+    second: Circulatory_Arteries
+  - first:
+      4: 400004
+    second: Circulatory_Veins
+  - first:
+      4: 400006
+    second: Collision 001
+  - first:
+      4: 400008
+    second: Collision 002
+  - first:
+      4: 400010
+    second: Collision 003
+  - first:
+      4: 400012
+    second: Delete 001
+  - first:
+      4: 400014
+    second: Delete 002
+  - first:
+      4: 400016
+    second: Display 001
+  - first:
+      4: 400018
+    second: Display 002
+  - first:
+      4: 400020
+    second: Display 003
+  - first:
+      4: 400022
+    second: Display 008
+  - first:
+      4: 400024
+    second: Display 009
+  - first:
+      4: 400026
+    second: Event 001
+  - first:
+      4: 400028
+    second: Event 002
+  - first:
+      4: 400030
+    second: Event 003
+  - first:
+      4: 400032
+    second: Event 004
+  - first:
+      4: 400034
+    second: Material Static 002
+  - first:
+      4: 400036
+    second: Particle View 001
+  - first:
+      4: 400038
+    second: PF Arrow001
+  - first:
+      4: 400040
+    second: PF Arrow002
+  - first:
+      4: 400042
+    second: PF Arrow003
+  - first:
+      4: 400044
+    second: Position Icon 001
+  - first:
+      4: 400046
+    second: Render 002
+  - first:
+      4: 400048
+    second: Rotation 001
+  - first:
+      4: 400050
+    second: Shape Instance 001
+  - first:
+      4: 400052
+    second: Skeletal System_Low
+  - first:
+      4: 400054
+    second: Speed 001
+  - first:
+      4: 400056
+    second: Spin 001
+  - first:
+      4: 400058
+    second: //RootNode
+  - first:
+      4: 400060
+    second: Urinary System
+  - first:
+      4: 400062
+    second: Urinary_Bladder
+  - first:
+      4: 400064
+    second: UrinarySystem
+  - first:
+      4: 400066
+    second: Group001
+  - first:
+      4: 400068
+    second: Urethra
+  - first:
+      4: 400070
+    second: Arrows
+  - first:
+      4: 400072
+    second: Line001
+  - first:
+      4: 400074
+    second: Line002
+  - first:
+      4: 400076
+    second: Plane001
+  - first:
+      4: 400078
+    second: Plane002
+  - first:
+      4: 400080
+    second: Plane003
+  - first:
+      4: 400082
+    second: Plane004
+  - first:
+      4: 400084
+    second: Plane005
+  - first:
+      4: 400086
+    second: Plane006
+  - first:
+      4: 400088
+    second: Plane007
+  - first:
+      4: 400090
+    second: Plane008
+  - first:
+      4: 400092
+    second: Plane009
+  - first:
+      4: 400094
+    second: Plane010
+  - first:
+      4: 400096
+    second: Plane011
+  - first:
+      4: 400098
+    second: Plane012
+  - first:
+      4: 400100
+    second: Urinary System Group
+  - first:
+      4: 400102
+    second: The Urinary System
+  - first:
+      4: 400104
+    second: The two kidneys
+  - first:
+      4: 400106
+    second: The two ureters
+  - first:
+      23: 2300000
+    second: Circulatory_Arteries
+  - first:
+      23: 2300002
+    second: Circulatory_Veins
+  - first:
+      23: 2300004
+    second: Skeletal System_Low
+  - first:
+      23: 2300006
+    second: Urinary_Bladder
+  - first:
+      23: 2300008
+    second: UrinarySystem
+  - first:
+      23: 2300010
+    second: Urethra
+  - first:
+      23: 2300012
+    second: Line001
+  - first:
+      23: 2300014
+    second: Line002
+  - first:
+      23: 2300016
+    second: Plane001
+  - first:
+      23: 2300018
+    second: Plane002
+  - first:
+      23: 2300020
+    second: Plane003
+  - first:
+      23: 2300022
+    second: Plane004
+  - first:
+      23: 2300024
+    second: Plane005
+  - first:
+      23: 2300026
+    second: Plane006
+  - first:
+      23: 2300028
+    second: Plane007
+  - first:
+      23: 2300030
+    second: Plane008
+  - first:
+      23: 2300032
+    second: Plane009
+  - first:
+      23: 2300034
+    second: Plane010
+  - first:
+      23: 2300036
+    second: Plane011
+  - first:
+      23: 2300038
+    second: Plane012
+  - first:
+      23: 2300040
+    second: The two kidneys
+  - first:
+      23: 2300042
+    second: The two ureters
+  - first:
+      33: 3300000
+    second: Circulatory_Arteries
+  - first:
+      33: 3300002
+    second: Circulatory_Veins
+  - first:
+      33: 3300004
+    second: Skeletal System_Low
+  - first:
+      33: 3300006
+    second: Urinary_Bladder
+  - first:
+      33: 3300008
+    second: UrinarySystem
+  - first:
+      33: 3300010
+    second: Urethra
+  - first:
+      33: 3300012
+    second: Line001
+  - first:
+      33: 3300014
+    second: Line002
+  - first:
+      33: 3300016
+    second: Plane001
+  - first:
+      33: 3300018
+    second: Plane002
+  - first:
+      33: 3300020
+    second: Plane003
+  - first:
+      33: 3300022
+    second: Plane004
+  - first:
+      33: 3300024
+    second: Plane005
+  - first:
+      33: 3300026
+    second: Plane006
+  - first:
+      33: 3300028
+    second: Plane007
+  - first:
+      33: 3300030
+    second: Plane008
+  - first:
+      33: 3300032
+    second: Plane009
+  - first:
+      33: 3300034
+    second: Plane010
+  - first:
+      33: 3300036
+    second: Plane011
+  - first:
+      33: 3300038
+    second: Plane012
+  - first:
+      33: 3300040
+    second: The two kidneys
+  - first:
+      33: 3300042
+    second: The two ureters
+  - first:
+      43: 4300000
+    second: Skeletal System_Low
+  - first:
+      43: 4300002
+    second: UrinarySystem
+  - first:
+      43: 4300004
+    second: Circulatory_Arteries
+  - first:
+      43: 4300006
+    second: Circulatory_Veins
+  - first:
+      43: 4300008
+    second: Urinary_Bladder
+  - first:
+      43: 4300010
+    second: Urethra
+  - first:
+      43: 4300012
+    second: Line001
+  - first:
+      43: 4300014
+    second: Line002
+  - first:
+      43: 4300016
+    second: Plane001
+  - first:
+      43: 4300018
+    second: Plane002
+  - first:
+      43: 4300020
+    second: Plane004
+  - first:
+      43: 4300022
+    second: Plane003
+  - first:
+      43: 4300024
+    second: Plane005
+  - first:
+      43: 4300026
+    second: Plane006
+  - first:
+      43: 4300028
+    second: Plane007
+  - first:
+      43: 4300030
+    second: Plane008
+  - first:
+      43: 4300032
+    second: Plane009
+  - first:
+      43: 4300034
+    second: Plane010
+  - first:
+      43: 4300036
+    second: Plane011
+  - first:
+      43: 4300038
+    second: Plane012
+  - first:
+      43: 4300040
+    second: The two kidneys
+  - first:
+      43: 4300042
+    second: The two ureters
+  - first:
+      95: 9500000
+    second: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 10 - Default
+    second: {fileID: 2100000, guid: fae614fb871333243bcd16a63c2451ee, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Arrows
+    second: {fileID: 2100000, guid: 6b584b2c08d5e8645892d7496ce26c92, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Circulatory_Arteries
+    second: {fileID: 2100000, guid: 1a9f2333ca3f9bf499c9321a9e30bf87, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Circulatory_Veins
+    second: {fileID: 2100000, guid: 7010b0783c4f3104fa71f96cfefc4355, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Reproductive_System
+    second: {fileID: 2100000, guid: ed8fb12717951954e8148a1c133b974c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Urinary_System
+    second: {fileID: 2100000, guid: ce71830bfc61f004f880ca5805ef1627, type: 2}
+  materials:
+    materialImportMode: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 0.01
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

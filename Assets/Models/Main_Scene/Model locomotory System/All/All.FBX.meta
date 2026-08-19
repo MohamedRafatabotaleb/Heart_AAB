@@ -1,0 +1,2737 @@
+fileFormatVersion: 2
+guid: fd392fcae7ff361469cc131545ab7dc3
+ModelImporter:
+  serializedVersion: 24200
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: //RootNode
+  - first:
+      1: 100002
+    second: ArmL01
+  - first:
+      1: 100004
+    second: ArmL02
+  - first:
+      1: 100006
+    second: ArmR001
+  - first:
+      1: 100008
+    second: Backbone
+  - first:
+      1: 100010
+    second: Body_InnerEyes1
+  - first:
+      1: 100012
+    second: Bone001
+  - first:
+      1: 100014
+    second: Bone002
+  - first:
+      1: 100016
+    second: Bone003
+  - first:
+      1: 100018
+    second: Bone004
+  - first:
+      1: 100020
+    second: Bone005
+  - first:
+      1: 100022
+    second: Bone006
+  - first:
+      1: 100024
+    second: Bone007
+  - first:
+      1: 100026
+    second: Bone008
+  - first:
+      1: 100028
+    second: Bone009
+  - first:
+      1: 100030
+    second: Bone010
+  - first:
+      1: 100032
+    second: Bone011
+  - first:
+      1: 100034
+    second: Bone012
+  - first:
+      1: 100036
+    second: Bone013
+  - first:
+      1: 100038
+    second: Bone014
+  - first:
+      1: 100040
+    second: Bone015
+  - first:
+      1: 100042
+    second: Bone016
+  - first:
+      1: 100044
+    second: Bone017
+  - first:
+      1: 100046
+    second: Bone018
+  - first:
+      1: 100048
+    second: Bone019
+  - first:
+      1: 100050
+    second: Bone020
+  - first:
+      1: 100052
+    second: Bone021
+  - first:
+      1: 100054
+    second: Bone022
+  - first:
+      1: 100056
+    second: Bone023
+  - first:
+      1: 100058
+    second: Bone024
+  - first:
+      1: 100060
+    second: Bone025
+  - first:
+      1: 100062
+    second: Bone026
+  - first:
+      1: 100064
+    second: Bone027
+  - first:
+      1: 100066
+    second: Bone028
+  - first:
+      1: 100068
+    second: Bone029
+  - first:
+      1: 100070
+    second: Bone030
+  - first:
+      1: 100072
+    second: Bone031
+  - first:
+      1: 100074
+    second: Bone032
+  - first:
+      1: 100076
+    second: Bone033
+  - first:
+      1: 100078
+    second: Bone034
+  - first:
+      1: 100080
+    second: Bone035
+  - first:
+      1: 100082
+    second: Bone036
+  - first:
+      1: 100084
+    second: Box001
+  - first:
+      1: 100086
+    second: Involuntary Blood Muscles
+  - first:
+      1: 100088
+    second: Line001
+  - first:
+      1: 100090
+    second: Line002
+  - first:
+      1: 100092
+    second: Line003
+  - first:
+      1: 100094
+    second: Line004
+  - first:
+      1: 100096
+    second: Lower Limbs
+  - first:
+      1: 100098
+    second: Muscular System
+  - first:
+      1: 100100
+    second: Muscular System_Low
+  - first:
+      1: 100102
+    second: Muscular System_Low002
+  - first:
+      1: 100104
+    second: Nervous System_Low
+  - first:
+      1: 100106
+    second: Nervous_Amygdala
+  - first:
+      1: 100108
+    second: Nervous_Cerebellum_Low
+  - first:
+      1: 100110
+    second: Nervous_Medulla_Caudate_Nucleus
+  - first:
+      1: 100112
+    second: Nervous_Nerves
+  - first:
+      1: 100114
+    second: Object001
+  - first:
+      1: 100116
+    second: Object002
+  - first:
+      1: 100118
+    second: Object003
+  - first:
+      1: 100120
+    second: Object004
+  - first:
+      1: 100122
+    second: Object005
+  - first:
+      1: 100124
+    second: Object006
+  - first:
+      1: 100126
+    second: Object007
+  - first:
+      1: 100128
+    second: Object008
+  - first:
+      1: 100130
+    second: Object009
+  - first:
+      1: 100132
+    second: Object010
+  - first:
+      1: 100134
+    second: Object011
+  - first:
+      1: 100136
+    second: Object012
+  - first:
+      1: 100138
+    second: Object013
+  - first:
+      1: 100140
+    second: Object014
+  - first:
+      1: 100142
+    second: Object015
+  - first:
+      1: 100144
+    second: Object016
+  - first:
+      1: 100146
+    second: Object017
+  - first:
+      1: 100148
+    second: Object018
+  - first:
+      1: 100150
+    second: Object019
+  - first:
+      1: 100152
+    second: Object020
+  - first:
+      1: 100154
+    second: Object021
+  - first:
+      1: 100156
+    second: Object022
+  - first:
+      1: 100158
+    second: Object023
+  - first:
+      1: 100160
+    second: Object024
+  - first:
+      1: 100162
+    second: Object025
+  - first:
+      1: 100164
+    second: Object026
+  - first:
+      1: 100166
+    second: Object027
+  - first:
+      1: 100168
+    second: Object028
+  - first:
+      1: 100170
+    second: Object029
+  - first:
+      1: 100172
+    second: Object030
+  - first:
+      1: 100174
+    second: Object031
+  - first:
+      1: 100176
+    second: Object032
+  - first:
+      1: 100178
+    second: Object033
+  - first:
+      1: 100180
+    second: Object034
+  - first:
+      1: 100182
+    second: Object035
+  - first:
+      1: 100184
+    second: Object036
+  - first:
+      1: 100186
+    second: Object037
+  - first:
+      1: 100188
+    second: Object038
+  - first:
+      1: 100190
+    second: Object039
+  - first:
+      1: 100192
+    second: Object040
+  - first:
+      1: 100194
+    second: Object041
+  - first:
+      1: 100196
+    second: Object042
+  - first:
+      1: 100198
+    second: Object043
+  - first:
+      1: 100200
+    second: Point001
+  - first:
+      1: 100202
+    second: Point002
+  - first:
+      1: 100204
+    second: Point003
+  - first:
+      1: 100206
+    second: R_Hand
+  - first:
+      1: 100208
+    second: Ribcage
+  - first:
+      1: 100210
+    second: Skeletal System_Low
+  - first:
+      1: 100212
+    second: Skeletal_Cranium_Low001
+  - first:
+      1: 100214
+    second: Skeletal_Low
+  - first:
+      1: 100216
+    second: Skeletal_Low003
+  - first:
+      1: 100218
+    second: Skeletal_Mandible_Low001
+  - first:
+      1: 100220
+    second: Sphere002
+  - first:
+      1: 100222
+    second: Sphere_M_B
+  - first:
+      1: 100224
+    second: Sphere_M_F
+  - first:
+      1: 100226
+    second: Uper Limbbs
+  - first:
+      1: 100228
+    second: Immovable joints
+  - first:
+      1: 100230
+    second: Muscular System_Low_MeshPart0
+  - first:
+      1: 100232
+    second: Muscular System_Low_MeshPart1
+  - first:
+      1: 100234
+    second: Object044
+  - first:
+      1: 100236
+    second: The backbone
+  - first:
+      1: 100238
+    second: The Skull
+  - first:
+      1: 100240
+    second: Upper limbs
+  - first:
+      1: 100242
+    second: Left Muscles
+  - first:
+      1: 100244
+    second: Muscular System_MeshPart0
+  - first:
+      1: 100246
+    second: Muscular System_MeshPart1
+  - first:
+      1: 100248
+    second: Left Arm_
+  - first:
+      1: 100250
+    second: Right Arm_
+  - first:
+      1: 100252
+    second: Eye
+  - first:
+      4: 400000
+    second: //RootNode
+  - first:
+      4: 400002
+    second: ArmL01
+  - first:
+      4: 400004
+    second: ArmL02
+  - first:
+      4: 400006
+    second: ArmR001
+  - first:
+      4: 400008
+    second: Backbone
+  - first:
+      4: 400010
+    second: Body_InnerEyes1
+  - first:
+      4: 400012
+    second: Bone001
+  - first:
+      4: 400014
+    second: Bone002
+  - first:
+      4: 400016
+    second: Bone003
+  - first:
+      4: 400018
+    second: Bone004
+  - first:
+      4: 400020
+    second: Bone005
+  - first:
+      4: 400022
+    second: Bone006
+  - first:
+      4: 400024
+    second: Bone007
+  - first:
+      4: 400026
+    second: Bone008
+  - first:
+      4: 400028
+    second: Bone009
+  - first:
+      4: 400030
+    second: Bone010
+  - first:
+      4: 400032
+    second: Bone011
+  - first:
+      4: 400034
+    second: Bone012
+  - first:
+      4: 400036
+    second: Bone013
+  - first:
+      4: 400038
+    second: Bone014
+  - first:
+      4: 400040
+    second: Bone015
+  - first:
+      4: 400042
+    second: Bone016
+  - first:
+      4: 400044
+    second: Bone017
+  - first:
+      4: 400046
+    second: Bone018
+  - first:
+      4: 400048
+    second: Bone019
+  - first:
+      4: 400050
+    second: Bone020
+  - first:
+      4: 400052
+    second: Bone021
+  - first:
+      4: 400054
+    second: Bone022
+  - first:
+      4: 400056
+    second: Bone023
+  - first:
+      4: 400058
+    second: Bone024
+  - first:
+      4: 400060
+    second: Bone025
+  - first:
+      4: 400062
+    second: Bone026
+  - first:
+      4: 400064
+    second: Bone027
+  - first:
+      4: 400066
+    second: Bone028
+  - first:
+      4: 400068
+    second: Bone029
+  - first:
+      4: 400070
+    second: Bone030
+  - first:
+      4: 400072
+    second: Bone031
+  - first:
+      4: 400074
+    second: Bone032
+  - first:
+      4: 400076
+    second: Bone033
+  - first:
+      4: 400078
+    second: Bone034
+  - first:
+      4: 400080
+    second: Bone035
+  - first:
+      4: 400082
+    second: Bone036
+  - first:
+      4: 400084
+    second: Box001
+  - first:
+      4: 400086
+    second: Involuntary Blood Muscles
+  - first:
+      4: 400088
+    second: Line001
+  - first:
+      4: 400090
+    second: Line002
+  - first:
+      4: 400092
+    second: Line003
+  - first:
+      4: 400094
+    second: Line004
+  - first:
+      4: 400096
+    second: Lower Limbs
+  - first:
+      4: 400098
+    second: Muscular System
+  - first:
+      4: 400100
+    second: Muscular System_Low
+  - first:
+      4: 400102
+    second: Muscular System_Low002
+  - first:
+      4: 400104
+    second: Nervous System_Low
+  - first:
+      4: 400106
+    second: Nervous_Amygdala
+  - first:
+      4: 400108
+    second: Nervous_Cerebellum_Low
+  - first:
+      4: 400110
+    second: Nervous_Medulla_Caudate_Nucleus
+  - first:
+      4: 400112
+    second: Nervous_Nerves
+  - first:
+      4: 400114
+    second: Object001
+  - first:
+      4: 400116
+    second: Object002
+  - first:
+      4: 400118
+    second: Object003
+  - first:
+      4: 400120
+    second: Object004
+  - first:
+      4: 400122
+    second: Object005
+  - first:
+      4: 400124
+    second: Object006
+  - first:
+      4: 400126
+    second: Object007
+  - first:
+      4: 400128
+    second: Object008
+  - first:
+      4: 400130
+    second: Object009
+  - first:
+      4: 400132
+    second: Object010
+  - first:
+      4: 400134
+    second: Object011
+  - first:
+      4: 400136
+    second: Object012
+  - first:
+      4: 400138
+    second: Object013
+  - first:
+      4: 400140
+    second: Object014
+  - first:
+      4: 400142
+    second: Object015
+  - first:
+      4: 400144
+    second: Object016
+  - first:
+      4: 400146
+    second: Object017
+  - first:
+      4: 400148
+    second: Object018
+  - first:
+      4: 400150
+    second: Object019
+  - first:
+      4: 400152
+    second: Object020
+  - first:
+      4: 400154
+    second: Object021
+  - first:
+      4: 400156
+    second: Object022
+  - first:
+      4: 400158
+    second: Object023
+  - first:
+      4: 400160
+    second: Object024
+  - first:
+      4: 400162
+    second: Object025
+  - first:
+      4: 400164
+    second: Object026
+  - first:
+      4: 400166
+    second: Object027
+  - first:
+      4: 400168
+    second: Object028
+  - first:
+      4: 400170
+    second: Object029
+  - first:
+      4: 400172
+    second: Object030
+  - first:
+      4: 400174
+    second: Object031
+  - first:
+      4: 400176
+    second: Object032
+  - first:
+      4: 400178
+    second: Object033
+  - first:
+      4: 400180
+    second: Object034
+  - first:
+      4: 400182
+    second: Object035
+  - first:
+      4: 400184
+    second: Object036
+  - first:
+      4: 400186
+    second: Object037
+  - first:
+      4: 400188
+    second: Object038
+  - first:
+      4: 400190
+    second: Object039
+  - first:
+      4: 400192
+    second: Object040
+  - first:
+      4: 400194
+    second: Object041
+  - first:
+      4: 400196
+    second: Object042
+  - first:
+      4: 400198
+    second: Object043
+  - first:
+      4: 400200
+    second: Point001
+  - first:
+      4: 400202
+    second: Point002
+  - first:
+      4: 400204
+    second: Point003
+  - first:
+      4: 400206
+    second: R_Hand
+  - first:
+      4: 400208
+    second: Ribcage
+  - first:
+      4: 400210
+    second: Skeletal System_Low
+  - first:
+      4: 400212
+    second: Skeletal_Cranium_Low001
+  - first:
+      4: 400214
+    second: Skeletal_Low
+  - first:
+      4: 400216
+    second: Skeletal_Low003
+  - first:
+      4: 400218
+    second: Skeletal_Mandible_Low001
+  - first:
+      4: 400220
+    second: Sphere002
+  - first:
+      4: 400222
+    second: Sphere_M_B
+  - first:
+      4: 400224
+    second: Sphere_M_F
+  - first:
+      4: 400226
+    second: Uper Limbbs
+  - first:
+      4: 400228
+    second: Immovable joints
+  - first:
+      4: 400230
+    second: Muscular System_Low_MeshPart0
+  - first:
+      4: 400232
+    second: Muscular System_Low_MeshPart1
+  - first:
+      4: 400234
+    second: Object044
+  - first:
+      4: 400236
+    second: The backbone
+  - first:
+      4: 400238
+    second: The Skull
+  - first:
+      4: 400240
+    second: Upper limbs
+  - first:
+      4: 400242
+    second: Left Muscles
+  - first:
+      4: 400244
+    second: Muscular System_MeshPart0
+  - first:
+      4: 400246
+    second: Muscular System_MeshPart1
+  - first:
+      4: 400248
+    second: Left Arm_
+  - first:
+      4: 400250
+    second: Right Arm_
+  - first:
+      4: 400252
+    second: Eye
+  - first:
+      23: 2300000
+    second: ArmL01
+  - first:
+      23: 2300002
+    second: ArmL02
+  - first:
+      23: 2300004
+    second: ArmR001
+  - first:
+      23: 2300006
+    second: Backbone
+  - first:
+      23: 2300008
+    second: Body_InnerEyes1
+  - first:
+      23: 2300010
+    second: Box001
+  - first:
+      23: 2300012
+    second: Line001
+  - first:
+      23: 2300014
+    second: Line002
+  - first:
+      23: 2300016
+    second: Line003
+  - first:
+      23: 2300018
+    second: Line004
+  - first:
+      23: 2300020
+    second: Lower Limbs
+  - first:
+      23: 2300022
+    second: Muscular System_Low
+  - first:
+      23: 2300024
+    second: Nervous_Amygdala
+  - first:
+      23: 2300026
+    second: Nervous_Cerebellum_Low
+  - first:
+      23: 2300028
+    second: Nervous_Medulla_Caudate_Nucleus
+  - first:
+      23: 2300030
+    second: Nervous_Nerves
+  - first:
+      23: 2300032
+    second: Object002
+  - first:
+      23: 2300034
+    second: Object003
+  - first:
+      23: 2300036
+    second: Object004
+  - first:
+      23: 2300038
+    second: Object005
+  - first:
+      23: 2300040
+    second: Object006
+  - first:
+      23: 2300042
+    second: Object007
+  - first:
+      23: 2300044
+    second: Object008
+  - first:
+      23: 2300046
+    second: Object009
+  - first:
+      23: 2300048
+    second: Object010
+  - first:
+      23: 2300050
+    second: Object011
+  - first:
+      23: 2300052
+    second: Object012
+  - first:
+      23: 2300054
+    second: Object013
+  - first:
+      23: 2300056
+    second: Object014
+  - first:
+      23: 2300058
+    second: Object015
+  - first:
+      23: 2300060
+    second: Object016
+  - first:
+      23: 2300062
+    second: Object017
+  - first:
+      23: 2300064
+    second: Object018
+  - first:
+      23: 2300066
+    second: Object019
+  - first:
+      23: 2300068
+    second: Object020
+  - first:
+      23: 2300070
+    second: Object021
+  - first:
+      23: 2300072
+    second: Object022
+  - first:
+      23: 2300074
+    second: Object024
+  - first:
+      23: 2300076
+    second: Object025
+  - first:
+      23: 2300078
+    second: Object026
+  - first:
+      23: 2300080
+    second: Object027
+  - first:
+      23: 2300082
+    second: Object028
+  - first:
+      23: 2300084
+    second: Object029
+  - first:
+      23: 2300086
+    second: Object030
+  - first:
+      23: 2300088
+    second: Object031
+  - first:
+      23: 2300090
+    second: Object032
+  - first:
+      23: 2300092
+    second: Object033
+  - first:
+      23: 2300094
+    second: Object034
+  - first:
+      23: 2300096
+    second: Object035
+  - first:
+      23: 2300098
+    second: Object036
+  - first:
+      23: 2300100
+    second: Object037
+  - first:
+      23: 2300102
+    second: Object038
+  - first:
+      23: 2300104
+    second: Object039
+  - first:
+      23: 2300106
+    second: Object040
+  - first:
+      23: 2300108
+    second: Object041
+  - first:
+      23: 2300110
+    second: Object042
+  - first:
+      23: 2300112
+    second: Object043
+  - first:
+      23: 2300114
+    second: Ribcage
+  - first:
+      23: 2300116
+    second: Skeletal_Cranium_Low001
+  - first:
+      23: 2300118
+    second: Skeletal_Low
+  - first:
+      23: 2300120
+    second: Skeletal_Mandible_Low001
+  - first:
+      23: 2300122
+    second: Sphere002
+  - first:
+      23: 2300124
+    second: Sphere_M_B
+  - first:
+      23: 2300126
+    second: Sphere_M_F
+  - first:
+      23: 2300128
+    second: Immovable joints
+  - first:
+      23: 2300130
+    second: Muscular System_Low_MeshPart0
+  - first:
+      23: 2300132
+    second: Muscular System_Low_MeshPart1
+  - first:
+      23: 2300134
+    second: Object044
+  - first:
+      23: 2300136
+    second: The backbone
+  - first:
+      23: 2300138
+    second: The Skull
+  - first:
+      23: 2300140
+    second: Left Muscles
+  - first:
+      23: 2300142
+    second: Muscular System_MeshPart0
+  - first:
+      23: 2300144
+    second: Muscular System_MeshPart1
+  - first:
+      23: 2300146
+    second: Eye
+  - first:
+      33: 3300000
+    second: ArmL01
+  - first:
+      33: 3300002
+    second: ArmL02
+  - first:
+      33: 3300004
+    second: ArmR001
+  - first:
+      33: 3300006
+    second: Backbone
+  - first:
+      33: 3300008
+    second: Body_InnerEyes1
+  - first:
+      33: 3300010
+    second: Box001
+  - first:
+      33: 3300012
+    second: Line001
+  - first:
+      33: 3300014
+    second: Line002
+  - first:
+      33: 3300016
+    second: Line003
+  - first:
+      33: 3300018
+    second: Line004
+  - first:
+      33: 3300020
+    second: Lower Limbs
+  - first:
+      33: 3300022
+    second: Muscular System_Low
+  - first:
+      33: 3300024
+    second: Nervous_Amygdala
+  - first:
+      33: 3300026
+    second: Nervous_Cerebellum_Low
+  - first:
+      33: 3300028
+    second: Nervous_Medulla_Caudate_Nucleus
+  - first:
+      33: 3300030
+    second: Nervous_Nerves
+  - first:
+      33: 3300032
+    second: Object002
+  - first:
+      33: 3300034
+    second: Object003
+  - first:
+      33: 3300036
+    second: Object004
+  - first:
+      33: 3300038
+    second: Object005
+  - first:
+      33: 3300040
+    second: Object006
+  - first:
+      33: 3300042
+    second: Object007
+  - first:
+      33: 3300044
+    second: Object008
+  - first:
+      33: 3300046
+    second: Object009
+  - first:
+      33: 3300048
+    second: Object010
+  - first:
+      33: 3300050
+    second: Object011
+  - first:
+      33: 3300052
+    second: Object012
+  - first:
+      33: 3300054
+    second: Object013
+  - first:
+      33: 3300056
+    second: Object014
+  - first:
+      33: 3300058
+    second: Object015
+  - first:
+      33: 3300060
+    second: Object016
+  - first:
+      33: 3300062
+    second: Object017
+  - first:
+      33: 3300064
+    second: Object018
+  - first:
+      33: 3300066
+    second: Object019
+  - first:
+      33: 3300068
+    second: Object020
+  - first:
+      33: 3300070
+    second: Object021
+  - first:
+      33: 3300072
+    second: Object022
+  - first:
+      33: 3300074
+    second: Object024
+  - first:
+      33: 3300076
+    second: Object025
+  - first:
+      33: 3300078
+    second: Object026
+  - first:
+      33: 3300080
+    second: Object027
+  - first:
+      33: 3300082
+    second: Object028
+  - first:
+      33: 3300084
+    second: Object029
+  - first:
+      33: 3300086
+    second: Object030
+  - first:
+      33: 3300088
+    second: Object031
+  - first:
+      33: 3300090
+    second: Object032
+  - first:
+      33: 3300092
+    second: Object033
+  - first:
+      33: 3300094
+    second: Object034
+  - first:
+      33: 3300096
+    second: Object035
+  - first:
+      33: 3300098
+    second: Object036
+  - first:
+      33: 3300100
+    second: Object037
+  - first:
+      33: 3300102
+    second: Object038
+  - first:
+      33: 3300104
+    second: Object039
+  - first:
+      33: 3300106
+    second: Object040
+  - first:
+      33: 3300108
+    second: Object041
+  - first:
+      33: 3300110
+    second: Object042
+  - first:
+      33: 3300112
+    second: Object043
+  - first:
+      33: 3300114
+    second: Ribcage
+  - first:
+      33: 3300116
+    second: Skeletal_Cranium_Low001
+  - first:
+      33: 3300118
+    second: Skeletal_Low
+  - first:
+      33: 3300120
+    second: Skeletal_Mandible_Low001
+  - first:
+      33: 3300122
+    second: Sphere002
+  - first:
+      33: 3300124
+    second: Sphere_M_B
+  - first:
+      33: 3300126
+    second: Sphere_M_F
+  - first:
+      33: 3300128
+    second: Immovable joints
+  - first:
+      33: 3300130
+    second: Muscular System_Low_MeshPart0
+  - first:
+      33: 3300132
+    second: Muscular System_Low_MeshPart1
+  - first:
+      33: 3300134
+    second: Object044
+  - first:
+      33: 3300136
+    second: The backbone
+  - first:
+      33: 3300138
+    second: The Skull
+  - first:
+      33: 3300140
+    second: Left Muscles
+  - first:
+      33: 3300142
+    second: Muscular System_MeshPart0
+  - first:
+      33: 3300144
+    second: Muscular System_MeshPart1
+  - first:
+      33: 3300146
+    second: Eye
+  - first:
+      43: 4300000
+    second: Line002
+  - first:
+      43: 4300002
+    second: Line003
+  - first:
+      43: 4300004
+    second: Line004
+  - first:
+      43: 4300006
+    second: Sphere002
+  - first:
+      43: 4300008
+    second: Box001
+  - first:
+      43: 4300010
+    second: Line001
+  - first:
+      43: 4300012
+    second: Nervous_Cerebellum_Low
+  - first:
+      43: 4300014
+    second: Nervous_Medulla_Caudate_Nucleus
+  - first:
+      43: 4300016
+    second: Nervous_Amygdala
+  - first:
+      43: 4300018
+    second: Nervous_Nerves
+  - first:
+      43: 4300020
+    second: Object023
+  - first:
+      43: 4300022
+    second: Object024
+  - first:
+      43: 4300024
+    second: Object025
+  - first:
+      43: 4300026
+    second: Object026
+  - first:
+      43: 4300028
+    second: Object027
+  - first:
+      43: 4300030
+    second: Object028
+  - first:
+      43: 4300032
+    second: Object029
+  - first:
+      43: 4300034
+    second: Object030
+  - first:
+      43: 4300036
+    second: Object031
+  - first:
+      43: 4300038
+    second: Object032
+  - first:
+      43: 4300040
+    second: Object033
+  - first:
+      43: 4300042
+    second: Object034
+  - first:
+      43: 4300044
+    second: Object035
+  - first:
+      43: 4300046
+    second: Object036
+  - first:
+      43: 4300048
+    second: Object037
+  - first:
+      43: 4300050
+    second: Object038
+  - first:
+      43: 4300052
+    second: Object039
+  - first:
+      43: 4300054
+    second: Object040
+  - first:
+      43: 4300056
+    second: Object041
+  - first:
+      43: 4300058
+    second: Object042
+  - first:
+      43: 4300060
+    second: Object043
+  - first:
+      43: 4300062
+    second: ArmL02
+  - first:
+      43: 4300064
+    second: ArmL01
+  - first:
+      43: 4300066
+    second: Sphere_M_B
+  - first:
+      43: 4300068
+    second: Sphere_M_F
+  - first:
+      43: 4300070
+    second: Object001
+  - first:
+      43: 4300072
+    second: Muscular System_Low
+  - first:
+      43: 4300074
+    second: Lower Limbs
+  - first:
+      43: 4300076
+    second: Skeletal_Low
+  - first:
+      43: 4300078
+    second: Object014
+  - first:
+      43: 4300080
+    second: Object013
+  - first:
+      43: 4300082
+    second: Object011
+  - first:
+      43: 4300084
+    second: Object022
+  - first:
+      43: 4300086
+    second: Object021
+  - first:
+      43: 4300088
+    second: Object020
+  - first:
+      43: 4300090
+    second: Object019
+  - first:
+      43: 4300092
+    second: Object018
+  - first:
+      43: 4300094
+    second: Object017
+  - first:
+      43: 4300096
+    second: Object016
+  - first:
+      43: 4300098
+    second: Object015
+  - first:
+      43: 4300100
+    second: Object012
+  - first:
+      43: 4300102
+    second: Object006
+  - first:
+      43: 4300104
+    second: Object005
+  - first:
+      43: 4300106
+    second: Object004
+  - first:
+      43: 4300108
+    second: Object003
+  - first:
+      43: 4300110
+    second: Object008
+  - first:
+      43: 4300112
+    second: Object007
+  - first:
+      43: 4300114
+    second: Object009
+  - first:
+      43: 4300116
+    second: Object010
+  - first:
+      43: 4300118
+    second: Object002
+  - first:
+      43: 4300120
+    second: ArmR001
+  - first:
+      43: 4300122
+    second: Ribcage
+  - first:
+      43: 4300124
+    second: Backbone
+  - first:
+      43: 4300126
+    second: Skeletal_Mandible_Low001
+  - first:
+      43: 4300128
+    second: Skeletal_Cranium_Low001
+  - first:
+      43: 4300130
+    second: Body_InnerEyes1
+  - first:
+      43: 4300132
+    second: Object044
+  - first:
+      43: 4300134
+    second: The backbone
+  - first:
+      43: 4300136
+    second: The Skull
+  - first:
+      43: 4300138
+    second: Immovable joints
+  - first:
+      43: 4300140
+    second: Muscular System_Low_MeshPart0
+  - first:
+      43: 4300142
+    second: Muscular System_Low_MeshPart1
+  - first:
+      43: 4300144
+    second: Left Muscles
+  - first:
+      43: 4300146
+    second: Muscular System_MeshPart0
+  - first:
+      43: 4300148
+    second: Muscular System_MeshPart1
+  - first:
+      43: 4300150
+    second: Eye
+  - first:
+      74: 7400000
+    second: Take 001
+  - first:
+      74: 7400002
+    second: Muscles_Movement
+  - first:
+      74: 7400004
+    second: Stop_Animation
+  - first:
+      74: 7400006
+    second: Slightly_movable
+  - first:
+      74: 7400008
+    second: Freely_movable
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      111: 11100000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: Object001
+  - first:
+      137: 13700002
+    second: Object023
+  - first:
+      137: 13700004
+    second: Left Muscles
+  - first:
+      41386430: 2186277476908879412
+    second: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bones
+    second: {fileID: 2100000, guid: b3d6b0e16c979624abc99055be92805e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Eyes
+    second: {fileID: 2100000, guid: 8f7dc0fdfe79491408e947fa21250a71, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Muscular_System
+    second: {fileID: 2100000, guid: 3e2dc77fc5d769c44859a35a8af18153, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: No Name
+    second: {fileID: 2100000, guid: 7a98b429f606a2d4e8833b270f8c6e9a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Skull
+    second: {fileID: 2100000, guid: a9ed2aea5cf987240992a08afa96a312, type: 2}
+  materials:
+    materialImportMode: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 250
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Eye
+        weight: 1
+      - path: Immovable joints
+        weight: 1
+      - path: Left Muscles
+        weight: 1
+      - path: Lower Limbs
+        weight: 1
+      - path: Muscular System
+        weight: 1
+      - path: Muscular System/Muscular System_MeshPart0
+        weight: 1
+      - path: Muscular System/Muscular System_MeshPart1
+        weight: 1
+      - path: Upper limbs
+        weight: 1
+      - path: Upper limbs/Left Arm_
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/ArmL01
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/ArmL02
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone022
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone022/Bone023
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone022/Bone023/Bone024
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone022/Bone023/Bone024/Object024
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone022/Bone023/Object025
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone022/Object026
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone025
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone025/Bone026
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone025/Bone026/Bone027
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone025/Bone026/Bone027/Object027
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone025/Bone026/Object028
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone025/Object029
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone028
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone028/Bone029
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone028/Bone029/Bone030
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone028/Bone029/Bone030/Object030
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone028/Bone029/Object031
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone028/Object032
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone031
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone031/Bone032
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone031/Bone032/Bone033
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone031/Bone032/Bone033/Object033
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone031/Bone032/Object034
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone031/Object035
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone034
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone034/Bone035
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone034/Bone035/Bone036
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone034/Bone035/Bone036/Object036
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone034/Bone035/Object037
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone034/Object038
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Object039
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Object040
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Object041
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Object042
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Object043
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Point003
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Point003/Sphere_M_B
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Point003/Sphere_M_F
+        weight: 1
+      - path: Upper limbs/Ribcage
+        weight: 1
+      - path: Upper limbs/Right Arm_
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/ArmR001
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone004
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone004/Bone005
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone004/Bone005/Bone006
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone004/Bone005/Bone006/Object016
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone004/Bone005/Object015
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone004/Object012
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone007
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone007/Bone008
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone007/Bone008/Bone009
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone007/Bone008/Bone009/Object014
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone007/Bone008/Object013
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone007/Object011
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone010
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone010/Bone011
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone010/Bone011/Bone012
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone010/Bone011/Bone012/Object019
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone010/Bone011/Object018
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone010/Object017
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone013
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone013/Bone014
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone013/Bone014/Bone015
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone013/Bone014/Bone015/Object022
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone013/Bone014/Object021
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone013/Object020
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone016
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone016/Bone017
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone016/Bone017/Bone018
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone016/Bone017/Bone018/Object006
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone016/Bone017/Object005
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone016/Object004
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Object003
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Object007
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Object008
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Object009
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Object010
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Object002
+        weight: 1
+      - path: Upper limbs/Skeletal_Low
+        weight: 1
+      - path: Upper limbs/Skeletal_Low003
+        weight: 1
+      - path: Upper limbs/The backbone
+        weight: 1
+      - path: Upper limbs/The Skull
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Muscles_Movement
+      takeName: Take 001
+      internalID: 0
+      firstFrame: 30
+      lastFrame: 92
+      wrapMode: 4
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Eye
+        weight: 1
+      - path: Immovable joints
+        weight: 1
+      - path: Left Muscles
+        weight: 1
+      - path: Lower Limbs
+        weight: 1
+      - path: Muscular System
+        weight: 1
+      - path: Muscular System/Muscular System_MeshPart0
+        weight: 1
+      - path: Muscular System/Muscular System_MeshPart1
+        weight: 1
+      - path: Upper limbs
+        weight: 1
+      - path: Upper limbs/Left Arm_
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/ArmL01
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/ArmL02
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone022
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone022/Bone023
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone022/Bone023/Bone024
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone022/Bone023/Bone024/Object024
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone022/Bone023/Object025
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone022/Object026
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone025
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone025/Bone026
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone025/Bone026/Bone027
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone025/Bone026/Bone027/Object027
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone025/Bone026/Object028
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone025/Object029
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone028
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone028/Bone029
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone028/Bone029/Bone030
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone028/Bone029/Bone030/Object030
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone028/Bone029/Object031
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone028/Object032
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone031
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone031/Bone032
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone031/Bone032/Bone033
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone031/Bone032/Bone033/Object033
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone031/Bone032/Object034
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone031/Object035
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone034
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone034/Bone035
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone034/Bone035/Bone036
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone034/Bone035/Bone036/Object036
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone034/Bone035/Object037
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone034/Object038
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Object039
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Object040
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Object041
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Object042
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Object043
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Point003
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Point003/Sphere_M_B
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Point003/Sphere_M_F
+        weight: 1
+      - path: Upper limbs/Ribcage
+        weight: 1
+      - path: Upper limbs/Right Arm_
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/ArmR001
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone004
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone004/Bone005
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone004/Bone005/Bone006
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone004/Bone005/Bone006/Object016
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone004/Bone005/Object015
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone004/Object012
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone007
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone007/Bone008
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone007/Bone008/Bone009
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone007/Bone008/Bone009/Object014
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone007/Bone008/Object013
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone007/Object011
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone010
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone010/Bone011
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone010/Bone011/Bone012
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone010/Bone011/Bone012/Object019
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone010/Bone011/Object018
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone010/Object017
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone013
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone013/Bone014
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone013/Bone014/Bone015
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone013/Bone014/Bone015/Object022
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone013/Bone014/Object021
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone013/Object020
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone016
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone016/Bone017
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone016/Bone017/Bone018
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone016/Bone017/Bone018/Object006
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone016/Bone017/Object005
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone016/Object004
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Object003
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Object007
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Object008
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Object009
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Object010
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Object002
+        weight: 1
+      - path: Upper limbs/Skeletal_Low
+        weight: 1
+      - path: Upper limbs/Skeletal_Low003
+        weight: 1
+      - path: Upper limbs/The backbone
+        weight: 1
+      - path: Upper limbs/The Skull
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Stop_Animation
+      takeName: Take 001
+      internalID: 0
+      firstFrame: 245
+      lastFrame: 250
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Eye
+        weight: 1
+      - path: Immovable joints
+        weight: 1
+      - path: Left Muscles
+        weight: 1
+      - path: Lower Limbs
+        weight: 1
+      - path: Muscular System
+        weight: 1
+      - path: Muscular System/Muscular System_MeshPart0
+        weight: 1
+      - path: Muscular System/Muscular System_MeshPart1
+        weight: 1
+      - path: Upper limbs
+        weight: 1
+      - path: Upper limbs/Left Arm_
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/ArmL01
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/ArmL02
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone022
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone022/Bone023
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone022/Bone023/Bone024
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone022/Bone023/Bone024/Object024
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone022/Bone023/Object025
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone022/Object026
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone025
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone025/Bone026
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone025/Bone026/Bone027
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone025/Bone026/Bone027/Object027
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone025/Bone026/Object028
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone025/Object029
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone028
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone028/Bone029
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone028/Bone029/Bone030
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone028/Bone029/Bone030/Object030
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone028/Bone029/Object031
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone028/Object032
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone031
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone031/Bone032
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone031/Bone032/Bone033
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone031/Bone032/Bone033/Object033
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone031/Bone032/Object034
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone031/Object035
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone034
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone034/Bone035
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone034/Bone035/Bone036
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone034/Bone035/Bone036/Object036
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone034/Bone035/Object037
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone034/Object038
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Object039
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Object040
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Object041
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Object042
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Object043
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Point003
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Point003/Sphere_M_B
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Point003/Sphere_M_F
+        weight: 1
+      - path: Upper limbs/Ribcage
+        weight: 1
+      - path: Upper limbs/Right Arm_
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/ArmR001
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone004
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone004/Bone005
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone004/Bone005/Bone006
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone004/Bone005/Bone006/Object016
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone004/Bone005/Object015
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone004/Object012
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone007
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone007/Bone008
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone007/Bone008/Bone009
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone007/Bone008/Bone009/Object014
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone007/Bone008/Object013
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone007/Object011
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone010
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone010/Bone011
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone010/Bone011/Bone012
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone010/Bone011/Bone012/Object019
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone010/Bone011/Object018
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone010/Object017
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone013
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone013/Bone014
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone013/Bone014/Bone015
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone013/Bone014/Bone015/Object022
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone013/Bone014/Object021
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone013/Object020
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone016
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone016/Bone017
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone016/Bone017/Bone018
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone016/Bone017/Bone018/Object006
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone016/Bone017/Object005
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone016/Object004
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Object003
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Object007
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Object008
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Object009
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Object010
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Object002
+        weight: 1
+      - path: Upper limbs/Skeletal_Low
+        weight: 1
+      - path: Upper limbs/Skeletal_Low003
+        weight: 1
+      - path: Upper limbs/The backbone
+        weight: 1
+      - path: Upper limbs/The Skull
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Slightly_movable
+      takeName: Take 001
+      internalID: 0
+      firstFrame: 125
+      lastFrame: 160
+      wrapMode: 4
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Eye
+        weight: 1
+      - path: Immovable joints
+        weight: 1
+      - path: Left Muscles
+        weight: 1
+      - path: Lower Limbs
+        weight: 1
+      - path: Muscular System
+        weight: 1
+      - path: Muscular System/Muscular System_MeshPart0
+        weight: 1
+      - path: Muscular System/Muscular System_MeshPart1
+        weight: 1
+      - path: Upper limbs
+        weight: 1
+      - path: Upper limbs/Left Arm_
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/ArmL01
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/ArmL02
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone022
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone022/Bone023
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone022/Bone023/Bone024
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone022/Bone023/Bone024/Object024
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone022/Bone023/Object025
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone022/Object026
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone025
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone025/Bone026
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone025/Bone026/Bone027
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone025/Bone026/Bone027/Object027
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone025/Bone026/Object028
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone025/Object029
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone028
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone028/Bone029
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone028/Bone029/Bone030
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone028/Bone029/Bone030/Object030
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone028/Bone029/Object031
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone028/Object032
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone031
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone031/Bone032
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone031/Bone032/Bone033
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone031/Bone032/Bone033/Object033
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone031/Bone032/Object034
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone031/Object035
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone034
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone034/Bone035
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone034/Bone035/Bone036
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone034/Bone035/Bone036/Object036
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone034/Bone035/Object037
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone034/Object038
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Object039
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Object040
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Object041
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Object042
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Object043
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Point003
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Point003/Sphere_M_B
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Point003/Sphere_M_F
+        weight: 1
+      - path: Upper limbs/Ribcage
+        weight: 1
+      - path: Upper limbs/Right Arm_
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/ArmR001
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone004
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone004/Bone005
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone004/Bone005/Bone006
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone004/Bone005/Bone006/Object016
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone004/Bone005/Object015
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone004/Object012
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone007
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone007/Bone008
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone007/Bone008/Bone009
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone007/Bone008/Bone009/Object014
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone007/Bone008/Object013
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone007/Object011
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone010
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone010/Bone011
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone010/Bone011/Bone012
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone010/Bone011/Bone012/Object019
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone010/Bone011/Object018
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone010/Object017
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone013
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone013/Bone014
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone013/Bone014/Bone015
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone013/Bone014/Bone015/Object022
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone013/Bone014/Object021
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone013/Object020
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone016
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone016/Bone017
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone016/Bone017/Bone018
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone016/Bone017/Bone018/Object006
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone016/Bone017/Object005
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone016/Object004
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Object003
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Object007
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Object008
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Object009
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Object010
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Object002
+        weight: 1
+      - path: Upper limbs/Skeletal_Low
+        weight: 1
+      - path: Upper limbs/Skeletal_Low003
+        weight: 1
+      - path: Upper limbs/The backbone
+        weight: 1
+      - path: Upper limbs/The Skull
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Freely_movable
+      takeName: Take 001
+      internalID: 0
+      firstFrame: 160
+      lastFrame: 230
+      wrapMode: 4
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Eye
+        weight: 1
+      - path: Immovable joints
+        weight: 1
+      - path: Left Muscles
+        weight: 1
+      - path: Lower Limbs
+        weight: 1
+      - path: Muscular System
+        weight: 1
+      - path: Muscular System/Muscular System_MeshPart0
+        weight: 1
+      - path: Muscular System/Muscular System_MeshPart1
+        weight: 1
+      - path: Upper limbs
+        weight: 1
+      - path: Upper limbs/Left Arm_
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/ArmL01
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/ArmL02
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone022
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone022/Bone023
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone022/Bone023/Bone024
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone022/Bone023/Bone024/Object024
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone022/Bone023/Object025
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone022/Object026
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone025
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone025/Bone026
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone025/Bone026/Bone027
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone025/Bone026/Bone027/Object027
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone025/Bone026/Object028
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone025/Object029
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone028
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone028/Bone029
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone028/Bone029/Bone030
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone028/Bone029/Bone030/Object030
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone028/Bone029/Object031
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone028/Object032
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone031
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone031/Bone032
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone031/Bone032/Bone033
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone031/Bone032/Bone033/Object033
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone031/Bone032/Object034
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone031/Object035
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone034
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone034/Bone035
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone034/Bone035/Bone036
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone034/Bone035/Bone036/Object036
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone034/Bone035/Object037
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Bone034/Object038
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Object039
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Object040
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Object041
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Object042
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Bone020/Bone021/Object043
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Point003
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Point003/Sphere_M_B
+        weight: 1
+      - path: Upper limbs/Left Arm_/Bone019/Point003/Sphere_M_F
+        weight: 1
+      - path: Upper limbs/Ribcage
+        weight: 1
+      - path: Upper limbs/Right Arm_
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/ArmR001
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone004
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone004/Bone005
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone004/Bone005/Bone006
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone004/Bone005/Bone006/Object016
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone004/Bone005/Object015
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone004/Object012
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone007
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone007/Bone008
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone007/Bone008/Bone009
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone007/Bone008/Bone009/Object014
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone007/Bone008/Object013
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone007/Object011
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone010
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone010/Bone011
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone010/Bone011/Bone012
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone010/Bone011/Bone012/Object019
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone010/Bone011/Object018
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone010/Object017
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone013
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone013/Bone014
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone013/Bone014/Bone015
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone013/Bone014/Bone015/Object022
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone013/Bone014/Object021
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone013/Object020
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone016
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone016/Bone017
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone016/Bone017/Bone018
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone016/Bone017/Bone018/Object006
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone016/Bone017/Object005
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Bone016/Object004
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Object003
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Object007
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Object008
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Object009
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Bone003/Object010
+        weight: 1
+      - path: Upper limbs/Right Arm_/Bone001/Bone002/Object002
+        weight: 1
+      - path: Upper limbs/Skeletal_Low
+        weight: 1
+      - path: Upper limbs/Skeletal_Low003
+        weight: 1
+      - path: Upper limbs/The backbone
+        weight: 1
+      - path: Upper limbs/The Skull
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    generateMeshLods: 0
+    meshLodGenerationFlags: 0
+    maximumMeshLod: -1
+    meshOptimizationFlags: -1
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 1
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  importBlendShapeDeformPercent: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
