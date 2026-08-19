@@ -5,173 +5,241 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+// Manages the rotation, scale, and positioning of 3D models.
 [DisallowMultipleComponent]
 public class ModelControlsManager : MonoBehaviour
 {
+    // Enum defining available control actions.
     public enum ControlAction
     {
-        RotateRight,
-        RotateLeft,
-        ScaleUp,
-        ScaleDown,
-        AttachToHand,
-        ReleaseFromHand,
-        Reset
+        RotateRight, RotateLeft, ScaleUp, ScaleDown, AttachToHand, ReleaseFromHand, Reset
     }
 
+    // Group mapping an action to a list of UI buttons.
     [Serializable]
     public class ButtonControlGroup
     {
+        // The action assigned to these buttons.
         public ControlAction controlAction;
+        
+        // The list of buttons that trigger this action.
         public List<Button> buttons = new List<Button>();
     }
 
+    // Binds EventTrigger entries for UI interactions.
     private class TriggerBinding
     {
+        // The EventTrigger component on the UI element.
         public EventTrigger eventTrigger;
-
-        public List<EventTrigger.Entry> entries =
-            new List<EventTrigger.Entry>();
+        
+        // The list of active trigger entries.
+        public List<EventTrigger.Entry> entries = new List<EventTrigger.Entry>();
     }
 
+    // Stores the initial transform state of draggable objects.
     private class DraggableInitialState
     {
+        // Reference to the draggable component.
         public VR3DClickable clickable;
+        
+        // The transform of the draggable object.
         public Transform transform;
 
+        // The original parent transform.
         public Transform initialParent;
 
+        // The original local position.
         public Vector3 initialLocalPosition;
+        
+        // The original local rotation.
         public Quaternion initialLocalRotation;
+        
+        // The original local scale.
         public Vector3 initialLocalScale;
+        
+        // The original world scale.
         public Vector3 initialWorldScale;
     }
 
+    // Stores the state of colliders to restore them later.
     private class ColliderState
     {
+        // The collider component.
         public Collider collider;
+        
+        // Whether the collider was enabled originally.
         public bool wasEnabled;
     }
 
+    // The main model that will be controlled.
     [Header("Target Model")]
     [SerializeField] private Transform targetModel;
 
+    // The last model dragged by the user.
     [Header("Selected Model")]
-    [Tooltip(
-        "The last model dragged by VR3DClickable. " +
-        "Rotate / Scale / Attach To Hand will use this model."
-    )]
     [SerializeField] private Transform selectedModel;
 
+    // The attachment point under the hand controller.
     [Header("Hand Attach")]
-    [Tooltip(
-        "Create an Empty GameObject under the hand/controller " +
-        "and place it where you want the selected model to appear."
-    )]
     [SerializeField] private Transform handAttachPoint;
 
-    [Tooltip("Position of the model relative to Hand Attach Point.")]
+    // Position of the model relative to the hand attach point.
     [SerializeField] private Vector3 handLocalPosition = Vector3.zero;
 
-    [Tooltip("Rotation of the model relative to Hand Attach Point.")]
+    // Rotation of the model relative to the hand attach point.
     [SerializeField] private Vector3 handLocalEulerAngles = Vector3.zero;
 
+    // How long the selected model takes to move into the hand.
     [Header("Smooth Hand Attach")]
-    [Tooltip("How long the selected model takes to move into the hand.")]
     [SerializeField] private float handAttachDuration = 0.5f;
 
-    [SerializeField]
-    private AnimationCurve handAttachEaseCurve =
-        AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
+    // The easing curve for the hand attach animation.
+    [SerializeField] private AnimationCurve handAttachEaseCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
 
-    [Tooltip("Blocks Rotate / Scale while the model is moving into the hand.")]
+    // Blocks rotation and scaling while attaching to hand.
     [SerializeField] private bool blockControlsDuringHandAttach = true;
 
+    // List of grouped buttons for controlling actions.
     [Header("Button Control Groups")]
-    [SerializeField]
-    private List<ButtonControlGroup> buttonControlGroups =
-        new List<ButtonControlGroup>();
+    [SerializeField] private List<ButtonControlGroup> buttonControlGroups = new List<ButtonControlGroup>();
 
+    // Rotation speed multiplier.
     [Header("Rotation Settings")]
     [SerializeField] private float rotationSpeed = 100f;
+    
+    // The axis around which the model rotates.
     [SerializeField] private Vector3 rotationAxis = Vector3.up;
+    
+    // Determines if rotation happens in local or world space.
     [SerializeField] private bool useLocalRotation = true;
+    
+    // Reverses the rotation direction if enabled.
     [SerializeField] private bool invertRotationDirection = false;
 
+    // Time it takes to reach full rotation speed.
     [Header("Rotation Ease Settings")]
     [SerializeField] private float rotationEaseInTime = 0.2f;
+    
+    // Time it takes to stop rotating after releasing.
     [SerializeField] private float rotationEaseOutTime = 0.4f;
 
+    // Speed multiplier for scaling up and down.
     [Header("Scale Settings")]
     [SerializeField] private float scaleSpeed = 1f;
-    [SerializeField] private float minimumScaleMultiplier = 0.5f;
-    [SerializeField] private float maximumScaleMultiplier = 2f;
 
+    // The absolute minimum scale value the model can reach in the world.
+    [Header("Absolute Scale Limits")]
+    [SerializeField] private float absoluteMinimumScale = 0.5f;
+
+    // The absolute maximum scale value the model can reach in the world.
+    [SerializeField] private float absoluteMaximumScale = 5f;
+
+    // The absolute scale the model will smoothly transition to on start.
+    [Header("Start Scale Transition")]
+    [SerializeField] private float targetStartScale = 1f;
+
+    // How long the start scale transition takes.
+    [SerializeField] private float startScaleDuration = 1.5f;
+
+    // The curve used for the smooth scale transition at start.
+    [SerializeField] private AnimationCurve startScaleEaseCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
+
+    // Blocks other controls while the initial scale transition is happening.
+    [SerializeField] private bool blockControlsDuringStart = true;
+
+    // Time it takes to reach full scale speed.
     [Header("Scale Ease Settings")]
     [SerializeField] private float scaleEaseInTime = 0.2f;
+    
+    // Time it takes to stop scaling after releasing.
     [SerializeField] private float scaleEaseOutTime = 0.4f;
 
+    // Duration of the smooth reset animation.
     [Header("Smooth Reset Settings")]
     [SerializeField] private float resetDuration = 0.8f;
 
-    [SerializeField]
-    private AnimationCurve resetEaseCurve =
-        AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
+    // The easing curve for the smooth reset animation.
+    [SerializeField] private AnimationCurve resetEaseCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
 
-    [SerializeField]
-    private bool blockControlsDuringReset = true;
+    // Blocks rotation and scaling while resetting.
+    [SerializeField] private bool blockControlsDuringReset = true;
 
+    // Automatically finds draggable child models to track.
     [Header("Drag Reset")]
-    [Tooltip("Automatically finds VR3DClickable components under Target Model.")]
     [SerializeField] private bool autoFindDraggableModels = true;
 
-    [Tooltip("Optional draggable objects outside Target Model.")]
-    [SerializeField]
-    private List<VR3DClickable> extraDraggableModels =
-        new List<VR3DClickable>();
+    // Optional list of external draggable models to track.
+    [SerializeField] private List<VR3DClickable> extraDraggableModels = new List<VR3DClickable>();
 
+    // Tracks the original local position of the target model.
     private Vector3 initialLocalPosition;
+    
+    // Tracks the original local rotation of the target model.
     private Quaternion initialLocalRotation;
+    
+    // Tracks the original local scale of the target model.
     private Vector3 initialLocalScale;
+    
+    // Tracks the original world scale of the target model.
     private Vector3 initialWorldScale;
 
+    // The current calculated multiplier applied to the base scale.
     private float currentScaleMultiplier = 1f;
 
+    // Counts active presses for rotating right.
     private int rotateRightPressCount;
+    
+    // Counts active presses for rotating left.
     private int rotateLeftPressCount;
+    
+    // Counts active presses for scaling up.
     private int scaleUpPressCount;
+    
+    // Counts active presses for scaling down.
     private int scaleDownPressCount;
 
+    // Current speed of rotation taking ease into account.
     private float currentRotationSpeed;
+    
+    // Internal velocity tracker for smooth damping rotation.
     private float rotationSmoothVelocity;
 
+    // Current speed of scaling taking ease into account.
     private float currentScaleSpeed;
+    
+    // Internal velocity tracker for smooth damping scaling.
     private float scaleSmoothVelocity;
 
+    // Reference to the active reset coroutine.
     private Coroutine resetCoroutine;
+    
+    // Flag indicating if a reset animation is playing.
     private bool isResetting;
 
+    // Reference to the active hand attach coroutine.
     private Coroutine handAttachCoroutine;
+    
+    // Flag indicating if the hand attach animation is playing.
     private bool isAttachingToHand;
 
-    private readonly List<TriggerBinding> triggerBindings =
-        new List<TriggerBinding>();
+    // Flag indicating if the start scale transition is playing.
+    private bool isStartingScale;
 
-    private readonly List<DraggableInitialState> draggableInitialStates =
-        new List<DraggableInitialState>();
+    // List of all created UI trigger bindings for cleanup.
+    private readonly List<TriggerBinding> triggerBindings = new List<TriggerBinding>();
 
-    private readonly Dictionary<Transform, List<ColliderState>> savedColliderStates =
-        new Dictionary<Transform, List<ColliderState>>();
+    // List of original states for all draggable models.
+    private readonly List<DraggableInitialState> draggableInitialStates = new List<DraggableInitialState>();
 
+    // Dictionary mapping models to their saved collider states.
+    private readonly Dictionary<Transform, List<ColliderState>> savedColliderStates = new Dictionary<Transform, List<ColliderState>>();
+
+    // Called when the script instance is being loaded.
     private void Awake()
     {
         if (targetModel == null)
         {
-            Debug.LogError(
-                "Target Model is not assigned.",
-                gameObject
-            );
-
+            Debug.LogError("Target Model is not assigned.", gameObject);
             enabled = false;
             return;
         }
@@ -181,70 +249,100 @@ public class ModelControlsManager : MonoBehaviour
         SetupButtons();
     }
 
+    // Called before the first frame update to trigger the start scale.
+    private void Start()
+    {
+        if (targetModel != null && startScaleDuration > 0f)
+        {
+            StartCoroutine(SmoothStartScaleRoutine());
+        }
+    }
+
+    // Updates rotation and scale every frame based on input.
     private void Update()
     {
-        if (isResetting && blockControlsDuringReset)
-        {
-            return;
-        }
-
-        if (isAttachingToHand && blockControlsDuringHandAttach)
-        {
-            return;
-        }
+        if (isStartingScale && blockControlsDuringStart) return;
+        if (isResetting && blockControlsDuringReset) return;
+        if (isAttachingToHand && blockControlsDuringHandAttach) return;
 
         HandleRotation();
         HandleScale();
+    }
+
+    // Coroutine that smoothly scales the model to the target start scale.
+    private IEnumerator SmoothStartScaleRoutine()
+    {
+        isStartingScale = true;
+        float elapsedTime = 0f;
+        float startMultiplier = currentScaleMultiplier;
+        
+        float baseScale = Mathf.Abs(initialWorldScale.x) > 0.0001f ? Mathf.Abs(initialWorldScale.x) : 1f;
+        float targetMultiplier = targetStartScale / baseScale;
+
+        float minMult = absoluteMinimumScale / baseScale;
+        float maxMult = absoluteMaximumScale / baseScale;
+        targetMultiplier = Mathf.Clamp(targetMultiplier, minMult, maxMult);
+
+        while (elapsedTime < startScaleDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float normalizedTime = Mathf.Clamp01(elapsedTime / startScaleDuration);
+            float easedTime = startScaleEaseCurve.Evaluate(normalizedTime);
+
+            currentScaleMultiplier = Mathf.Lerp(startMultiplier, targetMultiplier, easedTime);
+            Vector3 desiredWorldScale = initialWorldScale * currentScaleMultiplier;
+            SetWorldScale(targetModel, desiredWorldScale);
+
+            yield return null;
+        }
+
+        currentScaleMultiplier = targetMultiplier;
+        SetWorldScale(targetModel, initialWorldScale * currentScaleMultiplier);
+        
+        initialLocalScale = targetModel.localScale;
+        initialWorldScale = targetModel.lossyScale;
+
+        isStartingScale = false;
     }
 
     // =========================================================
     // SELECTED MODEL
     // =========================================================
 
+    // Assigns a model to be the actively selected one.
     public void SetSelectedModel(Transform model)
     {
-        if (model == null)
-            return;
+        if (model == null) return;
 
         selectedModel = model;
-
-        CalculateCurrentScaleMultiplierForTarget(
-            GetScaleTarget()
-        );
-
-        Debug.Log(
-            "Selected Model: " + selectedModel.name,
-            selectedModel.gameObject
-        );
+        CalculateCurrentScaleMultiplierForTarget(GetScaleTarget());
+        Debug.Log("Selected Model: " + selectedModel.name, selectedModel.gameObject);
     }
 
+    // Clears the actively selected model.
     public void ClearSelectedModel()
     {
         selectedModel = null;
-
-        CalculateCurrentScaleMultiplierForTarget(
-            targetModel
-        );
+        CalculateCurrentScaleMultiplierForTarget(targetModel);
     }
 
+    // Returns the currently selected model transform.
     public Transform GetSelectedModel()
     {
         return selectedModel;
     }
 
+    // Determines the appropriate target for rotation.
     private Transform GetRotationTarget()
     {
-        if (selectedModel != null)
-            return selectedModel;
-
+        if (selectedModel != null) return selectedModel;
         return targetModel;
     }
 
+    // Determines the appropriate target for scaling.
     private Transform GetScaleTarget()
     {
-        if (selectedModel != null)
-            return selectedModel;
-
+        if (selectedModel != null) return selectedModel;
         return targetModel;
     }
 
@@ -252,23 +350,18 @@ public class ModelControlsManager : MonoBehaviour
     // HAND ATTACH
     // =========================================================
 
+    // Initiates attaching the selected model to the hand.
     public void AttachSelectedModelToHand()
     {
         if (selectedModel == null)
         {
-            Debug.LogWarning(
-                "No Selected Model. Drag a model first.",
-                gameObject
-            );
+            Debug.LogWarning("No Selected Model. Drag a model first.", gameObject);
             return;
         }
 
         if (handAttachPoint == null)
         {
-            Debug.LogWarning(
-                "Hand Attach Point is not assigned.",
-                gameObject
-            );
+            Debug.LogWarning("Hand Attach Point is not assigned.", gameObject);
             return;
         }
 
@@ -278,30 +371,24 @@ public class ModelControlsManager : MonoBehaviour
             handAttachCoroutine = null;
         }
 
-        handAttachCoroutine =
-            StartCoroutine(
-                SmoothAttachSelectedModelToHandRoutine()
-            );
+        handAttachCoroutine = StartCoroutine(SmoothAttachSelectedModelToHandRoutine());
     }
 
+    // Coroutine that smoothly animates the model to the hand attachment point.
     private IEnumerator SmoothAttachSelectedModelToHandRoutine()
     {
-        if (selectedModel == null ||
-            handAttachPoint == null)
+        if (selectedModel == null || handAttachPoint == null)
         {
             handAttachCoroutine = null;
             yield break;
         }
 
         isAttachingToHand = true;
-
         StopAllActions();
         StopMovementImmediately();
 
         Transform model = selectedModel;
-
-        VR3DClickable clickable =
-            model.GetComponent<VR3DClickable>();
+        VR3DClickable clickable = model.GetComponent<VR3DClickable>();
 
         if (clickable != null)
         {
@@ -310,25 +397,15 @@ public class ModelControlsManager : MonoBehaviour
 
         DisableModelColliders(model);
 
-        Vector3 startWorldPosition =
-            model.position;
-
-        Quaternion startWorldRotation =
-            model.rotation;
-
-        Vector3 startWorldScale =
-            model.lossyScale;
+        Vector3 startWorldPosition = model.position;
+        Quaternion startWorldRotation = model.rotation;
+        Vector3 startWorldScale = model.lossyScale;
 
         if (handAttachDuration <= 0f)
         {
-            FinishAttachToHand(
-                model,
-                startWorldScale
-            );
-
+            FinishAttachToHand(model, startWorldScale);
             isAttachingToHand = false;
             handAttachCoroutine = null;
-
             yield break;
         }
 
@@ -336,10 +413,7 @@ public class ModelControlsManager : MonoBehaviour
 
         while (elapsedTime < handAttachDuration)
         {
-            // If selection changed while attaching, cancel this move.
-            if (model == null ||
-                selectedModel != model ||
-                handAttachPoint == null)
+            if (model == null || selectedModel != model || handAttachPoint == null)
             {
                 isAttachingToHand = false;
                 handAttachCoroutine = null;
@@ -347,211 +421,100 @@ public class ModelControlsManager : MonoBehaviour
             }
 
             elapsedTime += Time.deltaTime;
+            float normalizedTime = Mathf.Clamp01(elapsedTime / handAttachDuration);
+            float easedTime = handAttachEaseCurve.Evaluate(normalizedTime);
 
-            float normalizedTime =
-                Mathf.Clamp01(
-                    elapsedTime / handAttachDuration
-                );
+            Vector3 targetWorldPosition = handAttachPoint.TransformPoint(handLocalPosition);
+            Quaternion targetWorldRotation = handAttachPoint.rotation * Quaternion.Euler(handLocalEulerAngles);
 
-            float easedTime =
-                handAttachEaseCurve.Evaluate(
-                    normalizedTime
-                );
+            model.position = Vector3.LerpUnclamped(startWorldPosition, targetWorldPosition, easedTime);
+            model.rotation = Quaternion.SlerpUnclamped(startWorldRotation, targetWorldRotation, easedTime);
 
-            // Recalculate every frame so the target follows the moving hand.
-            Vector3 targetWorldPosition =
-                handAttachPoint.TransformPoint(
-                    handLocalPosition
-                );
-
-            Quaternion targetWorldRotation =
-                handAttachPoint.rotation *
-                Quaternion.Euler(
-                    handLocalEulerAngles
-                );
-
-            model.position =
-                Vector3.LerpUnclamped(
-                    startWorldPosition,
-                    targetWorldPosition,
-                    easedTime
-                );
-
-            model.rotation =
-                Quaternion.SlerpUnclamped(
-                    startWorldRotation,
-                    targetWorldRotation,
-                    easedTime
-                );
-
-            // Preserve its visible world scale while moving.
-            SetWorldScale(
-                model,
-                startWorldScale
-            );
-
+            SetWorldScale(model, startWorldScale);
             yield return null;
         }
 
-        if (model != null &&
-            selectedModel == model &&
-            handAttachPoint != null)
+        if (model != null && selectedModel == model && handAttachPoint != null)
         {
-            FinishAttachToHand(
-                model,
-                startWorldScale
-            );
+            FinishAttachToHand(model, startWorldScale);
         }
 
         isAttachingToHand = false;
         handAttachCoroutine = null;
     }
 
-    private void FinishAttachToHand(
-        Transform model,
-        Vector3 preservedWorldScale
-    )
+    // Finalizes the attachment of the model to the hand.
+    private void FinishAttachToHand(Transform model, Vector3 preservedWorldScale)
     {
-        if (model == null ||
-            handAttachPoint == null)
-        {
-            return;
-        }
+        if (model == null || handAttachPoint == null) return;
 
-        model.SetParent(
-            handAttachPoint,
-            true
-        );
+        model.SetParent(handAttachPoint, true);
+        model.localPosition = handLocalPosition;
+        model.localRotation = Quaternion.Euler(handLocalEulerAngles);
 
-        model.localPosition =
-            handLocalPosition;
-
-        model.localRotation =
-            Quaternion.Euler(
-                handLocalEulerAngles
-            );
-
-        SetWorldScale(
-            model,
-            preservedWorldScale
-        );
-
-        // Recalculate after parenting so the next Scale press
-        // starts exactly from the current visible size.
-        CalculateCurrentScaleMultiplierForTarget(
-            model
-        );
-
-        Debug.Log(
-            "Smoothly Attached To Hand: " +
-            model.name,
-            model.gameObject
-        );
+        SetWorldScale(model, preservedWorldScale);
+        CalculateCurrentScaleMultiplierForTarget(model);
+        
+        Debug.Log("Smoothly Attached To Hand: " + model.name, model.gameObject);
     }
 
-    private void SetWorldScale(
-        Transform model,
-        Vector3 desiredWorldScale
-    )
+    // Applies a desired world scale to a transform safely.
+    private void SetWorldScale(Transform model, Vector3 desiredWorldScale)
     {
-        if (model == null)
-            return;
+        if (model == null) return;
 
-        Transform parent =
-            model.parent;
-
+        Transform parent = model.parent;
         if (parent == null)
         {
-            model.localScale =
-                desiredWorldScale;
+            model.localScale = desiredWorldScale;
             return;
         }
 
-        Vector3 parentScale =
-            parent.lossyScale;
-
-        model.localScale =
-            new Vector3(
-                SafeDivide(
-                    desiredWorldScale.x,
-                    parentScale.x
-                ),
-                SafeDivide(
-                    desiredWorldScale.y,
-                    parentScale.y
-                ),
-                SafeDivide(
-                    desiredWorldScale.z,
-                    parentScale.z
-                )
-            );
+        Vector3 parentScale = parent.lossyScale;
+        model.localScale = new Vector3(
+            SafeDivide(desiredWorldScale.x, parentScale.x),
+            SafeDivide(desiredWorldScale.y, parentScale.y),
+            SafeDivide(desiredWorldScale.z, parentScale.z)
+        );
     }
 
-    private float SafeDivide(
-        float value,
-        float divisor
-    )
+    // Safely divides two floats to avoid divide-by-zero errors.
+    private float SafeDivide(float value, float divisor)
     {
-        if (Mathf.Abs(divisor) < 0.00001f)
-        {
-            return value;
-        }
-
+        if (Mathf.Abs(divisor) < 0.00001f) return value;
         return value / divisor;
     }
 
+    // Releases the currently selected model back to its original parent.
     public void ReleaseSelectedModelFromHand()
     {
         CancelHandAttach();
 
         if (selectedModel == null)
         {
-            Debug.LogWarning(
-                "No Selected Model.",
-                gameObject
-            );
+            Debug.LogWarning("No Selected Model.", gameObject);
             return;
         }
 
-        DraggableInitialState state =
-            FindInitialState(selectedModel);
+        DraggableInitialState state = FindInitialState(selectedModel);
 
         if (state == null)
         {
-            Debug.LogWarning(
-                "Initial state was not found for: " +
-                selectedModel.name,
-                selectedModel.gameObject
-            );
+            Debug.LogWarning("Initial state was not found for: " + selectedModel.name, selectedModel.gameObject);
             return;
         }
 
-        // Return to original parent but keep current world position/rotation/scale.
-        selectedModel.SetParent(
-            state.initialParent,
-            true
-        );
-
+        selectedModel.SetParent(state.initialParent, true);
         RestoreModelColliders(selectedModel);
+        CalculateCurrentScaleMultiplierForTarget(selectedModel);
 
-        CalculateCurrentScaleMultiplierForTarget(
-            selectedModel
-        );
-
-        Debug.Log(
-            "Released From Hand: " + selectedModel.name,
-            selectedModel.gameObject
-        );
+        Debug.Log("Released From Hand: " + selectedModel.name, selectedModel.gameObject);
     }
 
+    // Checks if a specific model is attached to the hand.
     private bool IsAttachedToHand(Transform model)
     {
-        if (model == null ||
-            handAttachPoint == null)
-        {
-            return false;
-        }
-
+        if (model == null || handAttachPoint == null) return false;
         return model.parent == handAttachPoint;
     }
 
@@ -559,116 +522,49 @@ public class ModelControlsManager : MonoBehaviour
     // BUTTON SETUP
     // =========================================================
 
+    // Configures UI buttons with the required event triggers.
     private void SetupButtons()
     {
         RemoveCreatedTriggerEntries();
 
         foreach (ButtonControlGroup controlGroup in buttonControlGroups)
         {
-            if (controlGroup == null ||
-                controlGroup.buttons == null)
-            {
-                continue;
-            }
+            if (controlGroup == null || controlGroup.buttons == null) continue;
 
-            ControlAction selectedAction =
-                controlGroup.controlAction;
+            ControlAction selectedAction = controlGroup.controlAction;
 
             foreach (Button button in controlGroup.buttons)
             {
-                if (button == null)
-                    continue;
-
-                SetupButton(
-                    button,
-                    selectedAction
-                );
+                if (button == null) continue;
+                SetupButton(button, selectedAction);
             }
         }
     }
 
-    private void SetupButton(
-        Button button,
-        ControlAction action
-    )
+    // Sets up individual pointer events for a specific button.
+    private void SetupButton(Button button, ControlAction action)
     {
-        EventTrigger eventTrigger =
-            button.GetComponent<EventTrigger>();
+        EventTrigger eventTrigger = button.GetComponent<EventTrigger>();
+        if (eventTrigger == null) eventTrigger = button.gameObject.AddComponent<EventTrigger>();
 
-        if (eventTrigger == null)
-        {
-            eventTrigger =
-                button.gameObject.AddComponent<EventTrigger>();
-        }
+        if (eventTrigger.triggers == null) eventTrigger.triggers = new List<EventTrigger.Entry>();
 
-        if (eventTrigger.triggers == null)
-        {
-            eventTrigger.triggers =
-                new List<EventTrigger.Entry>();
-        }
+        TriggerBinding binding = new TriggerBinding { eventTrigger = eventTrigger };
 
-        TriggerBinding binding =
-            new TriggerBinding
-            {
-                eventTrigger = eventTrigger
-            };
-
-        AddTriggerEntry(
-            binding,
-            EventTriggerType.PointerDown,
-            delegate
-            {
-                StartAction(action);
-            }
-        );
-
-        AddTriggerEntry(
-            binding,
-            EventTriggerType.PointerUp,
-            delegate
-            {
-                StopAction(action);
-            }
-        );
-
-        AddTriggerEntry(
-            binding,
-            EventTriggerType.PointerExit,
-            delegate
-            {
-                StopAction(action);
-            }
-        );
-
-        AddTriggerEntry(
-            binding,
-            EventTriggerType.Cancel,
-            delegate
-            {
-                StopAction(action);
-            }
-        );
+        AddTriggerEntry(binding, EventTriggerType.PointerDown, delegate { StartAction(action); });
+        AddTriggerEntry(binding, EventTriggerType.PointerUp, delegate { StopAction(action); });
+        AddTriggerEntry(binding, EventTriggerType.PointerExit, delegate { StopAction(action); });
+        AddTriggerEntry(binding, EventTriggerType.Cancel, delegate { StopAction(action); });
 
         triggerBindings.Add(binding);
     }
 
-    private void AddTriggerEntry(
-        TriggerBinding binding,
-        EventTriggerType eventType,
-        Action<BaseEventData> callback
-    )
+    // Adds a specific event entry to the EventTrigger binding.
+    private void AddTriggerEntry(TriggerBinding binding, EventTriggerType eventType, Action<BaseEventData> callback)
     {
-        EventTrigger.Entry entry =
-            new EventTrigger.Entry();
-
+        EventTrigger.Entry entry = new EventTrigger.Entry();
         entry.eventID = eventType;
-
-        entry.callback.AddListener(
-            delegate(BaseEventData eventData)
-            {
-                callback(eventData);
-            }
-        );
+        entry.callback.AddListener(delegate(BaseEventData eventData) { callback(eventData); });
 
         binding.eventTrigger.triggers.Add(entry);
         binding.entries.Add(entry);
@@ -678,6 +574,7 @@ public class ModelControlsManager : MonoBehaviour
     // ACTIONS
     // =========================================================
 
+    // Starts executing the requested control action.
     private void StartAction(ControlAction action)
     {
         if (action == ControlAction.Reset)
@@ -700,55 +597,28 @@ public class ModelControlsManager : MonoBehaviour
 
         if (isResetting)
         {
-            if (blockControlsDuringReset)
-                return;
-
+            if (blockControlsDuringReset) return;
             CancelReset();
         }
 
         switch (action)
         {
-            case ControlAction.RotateRight:
-                rotateRightPressCount++;
-                break;
-
-            case ControlAction.RotateLeft:
-                rotateLeftPressCount++;
-                break;
-
-            case ControlAction.ScaleUp:
-                scaleUpPressCount++;
-                break;
-
-            case ControlAction.ScaleDown:
-                scaleDownPressCount++;
-                break;
+            case ControlAction.RotateRight: rotateRightPressCount++; break;
+            case ControlAction.RotateLeft: rotateLeftPressCount++; break;
+            case ControlAction.ScaleUp: scaleUpPressCount++; break;
+            case ControlAction.ScaleDown: scaleDownPressCount++; break;
         }
     }
 
+    // Stops executing the requested control action.
     private void StopAction(ControlAction action)
     {
         switch (action)
         {
-            case ControlAction.RotateRight:
-                rotateRightPressCount =
-                    Mathf.Max(0, rotateRightPressCount - 1);
-                break;
-
-            case ControlAction.RotateLeft:
-                rotateLeftPressCount =
-                    Mathf.Max(0, rotateLeftPressCount - 1);
-                break;
-
-            case ControlAction.ScaleUp:
-                scaleUpPressCount =
-                    Mathf.Max(0, scaleUpPressCount - 1);
-                break;
-
-            case ControlAction.ScaleDown:
-                scaleDownPressCount =
-                    Mathf.Max(0, scaleDownPressCount - 1);
-                break;
+            case ControlAction.RotateRight: rotateRightPressCount = Mathf.Max(0, rotateRightPressCount - 1); break;
+            case ControlAction.RotateLeft: rotateLeftPressCount = Mathf.Max(0, rotateLeftPressCount - 1); break;
+            case ControlAction.ScaleUp: scaleUpPressCount = Mathf.Max(0, scaleUpPressCount - 1); break;
+            case ControlAction.ScaleDown: scaleDownPressCount = Mathf.Max(0, scaleDownPressCount - 1); break;
         }
     }
 
@@ -756,184 +626,110 @@ public class ModelControlsManager : MonoBehaviour
     // ROTATION
     // =========================================================
 
+    // Calculates and applies rotation based on input state.
     private void HandleRotation()
     {
         float direction = 0f;
+        if (rotateRightPressCount > 0) direction -= 1f;
+        if (rotateLeftPressCount > 0) direction += 1f;
 
-        if (rotateRightPressCount > 0)
-            direction -= 1f;
+        if (invertRotationDirection) direction *= -1f;
 
-        if (rotateLeftPressCount > 0)
-            direction += 1f;
-
-        if (invertRotationDirection)
-            direction *= -1f;
-
-        float targetRotationSpeed =
-            direction * rotationSpeed;
-
-        float smoothTime =
-            Mathf.Abs(targetRotationSpeed) > 0.001f
-                ? rotationEaseInTime
-                : rotationEaseOutTime;
+        float targetRotationSpeed = direction * rotationSpeed;
+        float smoothTime = Mathf.Abs(targetRotationSpeed) > 0.001f ? rotationEaseInTime : rotationEaseOutTime;
 
         if (smoothTime <= 0f)
         {
-            currentRotationSpeed =
-                targetRotationSpeed;
-
+            currentRotationSpeed = targetRotationSpeed;
             rotationSmoothVelocity = 0f;
         }
         else
         {
-            currentRotationSpeed =
-                Mathf.SmoothDamp(
-                    currentRotationSpeed,
-                    targetRotationSpeed,
-                    ref rotationSmoothVelocity,
-                    smoothTime,
-                    Mathf.Infinity,
-                    Time.deltaTime
-                );
+            currentRotationSpeed = Mathf.SmoothDamp(currentRotationSpeed, targetRotationSpeed, ref rotationSmoothVelocity, smoothTime, Mathf.Infinity, Time.deltaTime);
         }
 
-        if (Mathf.Abs(currentRotationSpeed) < 0.01f &&
-            Mathf.Abs(targetRotationSpeed) < 0.01f)
+        if (Mathf.Abs(currentRotationSpeed) < 0.01f && Mathf.Abs(targetRotationSpeed) < 0.01f)
         {
             currentRotationSpeed = 0f;
             rotationSmoothVelocity = 0f;
             return;
         }
 
-        Transform rotationTarget =
-            GetRotationTarget();
+        Transform rotationTarget = GetRotationTarget();
+        if (rotationTarget == null) return;
 
-        if (rotationTarget == null)
-            return;
-
-        Space rotationSpace =
-            useLocalRotation
-                ? Space.Self
-                : Space.World;
-
-        rotationTarget.Rotate(
-            rotationAxis.normalized,
-            currentRotationSpeed * Time.deltaTime,
-            rotationSpace
-        );
+        Space rotationSpace = useLocalRotation ? Space.Self : Space.World;
+        rotationTarget.Rotate(rotationAxis.normalized, currentRotationSpeed * Time.deltaTime, rotationSpace);
     }
 
     // =========================================================
     // SCALE
     // =========================================================
 
+    // Calculates and applies scaling bounded by absolute limits.
     private void HandleScale()
     {
         float direction = 0f;
+        if (scaleUpPressCount > 0) direction += 1f;
+        if (scaleDownPressCount > 0) direction -= 1f;
 
-        if (scaleUpPressCount > 0)
-            direction += 1f;
-
-        if (scaleDownPressCount > 0)
-            direction -= 1f;
-
-        float targetScaleSpeed =
-            direction * scaleSpeed;
-
-        float smoothTime =
-            Mathf.Abs(targetScaleSpeed) > 0.001f
-                ? scaleEaseInTime
-                : scaleEaseOutTime;
+        float targetScaleSpeed = direction * scaleSpeed;
+        float smoothTime = Mathf.Abs(targetScaleSpeed) > 0.001f ? scaleEaseInTime : scaleEaseOutTime;
 
         if (smoothTime <= 0f)
         {
-            currentScaleSpeed =
-                targetScaleSpeed;
-
+            currentScaleSpeed = targetScaleSpeed;
             scaleSmoothVelocity = 0f;
         }
         else
         {
-            currentScaleSpeed =
-                Mathf.SmoothDamp(
-                    currentScaleSpeed,
-                    targetScaleSpeed,
-                    ref scaleSmoothVelocity,
-                    smoothTime,
-                    Mathf.Infinity,
-                    Time.deltaTime
-                );
+            currentScaleSpeed = Mathf.SmoothDamp(currentScaleSpeed, targetScaleSpeed, ref scaleSmoothVelocity, smoothTime, Mathf.Infinity, Time.deltaTime);
         }
 
-        if (Mathf.Abs(currentScaleSpeed) < 0.001f &&
-            Mathf.Abs(targetScaleSpeed) < 0.001f)
+        if (Mathf.Abs(currentScaleSpeed) < 0.001f && Mathf.Abs(targetScaleSpeed) < 0.001f)
         {
             currentScaleSpeed = 0f;
             scaleSmoothVelocity = 0f;
             return;
         }
 
-        currentScaleMultiplier +=
-            currentScaleSpeed * Time.deltaTime;
+        currentScaleMultiplier += currentScaleSpeed * Time.deltaTime;
 
-        currentScaleMultiplier =
-            Mathf.Clamp(
-                currentScaleMultiplier,
-                minimumScaleMultiplier,
-                maximumScaleMultiplier
-            );
+        Transform scaleTarget = GetScaleTarget();
+        if (scaleTarget == null) return;
 
-        if (currentScaleMultiplier >=
-                maximumScaleMultiplier &&
-            currentScaleSpeed > 0f)
+        Vector3 baseWorldScale = GetInitialWorldScaleForTransform(scaleTarget);
+        float baseScaleValue = Mathf.Abs(baseWorldScale.x) > 0.0001f ? Mathf.Abs(baseWorldScale.x) : 1f;
+
+        float minMult = absoluteMinimumScale / baseScaleValue;
+        float maxMult = absoluteMaximumScale / baseScaleValue;
+
+        currentScaleMultiplier = Mathf.Clamp(currentScaleMultiplier, minMult, maxMult);
+
+        if (currentScaleMultiplier >= maxMult && currentScaleSpeed > 0f)
         {
             currentScaleSpeed = 0f;
             scaleSmoothVelocity = 0f;
         }
 
-        if (currentScaleMultiplier <=
-                minimumScaleMultiplier &&
-            currentScaleSpeed < 0f)
+        if (currentScaleMultiplier <= minMult && currentScaleSpeed < 0f)
         {
             currentScaleSpeed = 0f;
             scaleSmoothVelocity = 0f;
         }
 
-        Transform scaleTarget =
-            GetScaleTarget();
-
-        if (scaleTarget == null)
-            return;
-
-        Vector3 baseWorldScale =
-            GetInitialWorldScaleForTransform(
-                scaleTarget
-            );
-
-        Vector3 desiredWorldScale =
-            baseWorldScale * currentScaleMultiplier;
-
-        SetWorldScale(
-            scaleTarget,
-            desiredWorldScale
-        );
+        Vector3 desiredWorldScale = baseWorldScale * currentScaleMultiplier;
+        SetWorldScale(scaleTarget, desiredWorldScale);
     }
 
-    private Vector3 GetInitialWorldScaleForTransform(
-        Transform model
-    )
+    // Returns the original world scale of a given transform.
+    private Vector3 GetInitialWorldScaleForTransform(Transform model)
     {
-        if (model == null)
-            return Vector3.one;
+        if (model == null) return Vector3.one;
+        if (model == targetModel) return initialWorldScale;
 
-        if (model == targetModel)
-            return initialWorldScale;
-
-        DraggableInitialState state =
-            FindInitialState(model);
-
-        if (state != null)
-            return state.initialWorldScale;
+        DraggableInitialState state = FindInitialState(model);
+        if (state != null) return state.initialWorldScale;
 
         return model.lossyScale;
     }
@@ -942,69 +738,38 @@ public class ModelControlsManager : MonoBehaviour
     // RESET
     // =========================================================
 
+    // Initiates the smooth reset animation sequence.
     public void SmoothResetModel()
     {
-        if (targetModel == null)
-            return;
+        if (targetModel == null) return;
 
         CancelHandAttach();
 
-        if (resetCoroutine != null)
-        {
-            StopCoroutine(resetCoroutine);
-        }
-
-        resetCoroutine =
-            StartCoroutine(
-                SmoothResetRoutine()
-            );
+        if (resetCoroutine != null) StopCoroutine(resetCoroutine);
+        resetCoroutine = StartCoroutine(SmoothResetRoutine());
     }
 
+    // Coroutine that smoothly returns models to their initial transforms.
     private IEnumerator SmoothResetRoutine()
     {
         isResetting = true;
-
         StopAllActions();
         StopMovementImmediately();
 
-        // IMPORTANT:
-        // Restore all draggable objects to their original parents FIRST,
-        // while keeping their current world transforms.
         RestoreOriginalParentsKeepingWorldTransform();
 
-        Vector3 startPosition =
-            targetModel.localPosition;
+        Vector3 startPosition = targetModel.localPosition;
+        Quaternion startRotation = targetModel.localRotation;
+        Vector3 startScale = targetModel.localScale;
 
-        Quaternion startRotation =
-            targetModel.localRotation;
+        List<Vector3> draggableStartPositions = new List<Vector3>(draggableInitialStates.Count);
+        List<Quaternion> draggableStartRotations = new List<Quaternion>(draggableInitialStates.Count);
+        List<Vector3> draggableStartScales = new List<Vector3>(draggableInitialStates.Count);
 
-        Vector3 startScale =
-            targetModel.localScale;
-
-        List<Vector3> draggableStartPositions =
-            new List<Vector3>(
-                draggableInitialStates.Count
-            );
-
-        List<Quaternion> draggableStartRotations =
-            new List<Quaternion>(
-                draggableInitialStates.Count
-            );
-
-        List<Vector3> draggableStartScales =
-            new List<Vector3>(
-                draggableInitialStates.Count
-            );
-
-        for (int i = 0;
-             i < draggableInitialStates.Count;
-             i++)
+        for (int i = 0; i < draggableInitialStates.Count; i++)
         {
-            DraggableInitialState state =
-                draggableInitialStates[i];
-
-            if (state == null ||
-                state.transform == null)
+            DraggableInitialState state = draggableInitialStates[i];
+            if (state == null || state.transform == null)
             {
                 draggableStartPositions.Add(Vector3.zero);
                 draggableStartRotations.Add(Quaternion.identity);
@@ -1012,22 +777,11 @@ public class ModelControlsManager : MonoBehaviour
                 continue;
             }
 
-            if (state.clickable != null)
-            {
-                state.clickable.EndDrag();
-            }
+            if (state.clickable != null) state.clickable.EndDrag();
 
-            draggableStartPositions.Add(
-                state.transform.localPosition
-            );
-
-            draggableStartRotations.Add(
-                state.transform.localRotation
-            );
-
-            draggableStartScales.Add(
-                state.transform.localScale
-            );
+            draggableStartPositions.Add(state.transform.localPosition);
+            draggableStartRotations.Add(state.transform.localRotation);
+            draggableStartScales.Add(state.transform.localScale);
         }
 
         if (resetDuration <= 0f)
@@ -1036,10 +790,8 @@ public class ModelControlsManager : MonoBehaviour
             ApplyInitialDraggableTransforms();
 
             selectedModel = null;
-
             isResetting = false;
             resetCoroutine = null;
-
             yield break;
         }
 
@@ -1048,74 +800,22 @@ public class ModelControlsManager : MonoBehaviour
         while (elapsedTime < resetDuration)
         {
             elapsedTime += Time.deltaTime;
+            float normalizedTime = Mathf.Clamp01(elapsedTime / resetDuration);
+            float easedTime = resetEaseCurve.Evaluate(normalizedTime);
 
-            float normalizedTime =
-                Mathf.Clamp01(
-                    elapsedTime / resetDuration
-                );
+            targetModel.localPosition = Vector3.LerpUnclamped(startPosition, initialLocalPosition, easedTime);
+            targetModel.localRotation = Quaternion.SlerpUnclamped(startRotation, initialLocalRotation, easedTime);
+            targetModel.localScale = Vector3.LerpUnclamped(startScale, initialLocalScale, easedTime);
 
-            float easedTime =
-                resetEaseCurve.Evaluate(
-                    normalizedTime
-                );
-
-            targetModel.localPosition =
-                Vector3.LerpUnclamped(
-                    startPosition,
-                    initialLocalPosition,
-                    easedTime
-                );
-
-            targetModel.localRotation =
-                Quaternion.SlerpUnclamped(
-                    startRotation,
-                    initialLocalRotation,
-                    easedTime
-                );
-
-            targetModel.localScale =
-                Vector3.LerpUnclamped(
-                    startScale,
-                    initialLocalScale,
-                    easedTime
-                );
-
-            for (int i = 0;
-                 i < draggableInitialStates.Count;
-                 i++)
+            for (int i = 0; i < draggableInitialStates.Count; i++)
             {
-                DraggableInitialState state =
-                    draggableInitialStates[i];
+                DraggableInitialState state = draggableInitialStates[i];
+                if (state == null || state.transform == null) continue;
+                if (state.transform == targetModel) continue;
 
-                if (state == null ||
-                    state.transform == null)
-                {
-                    continue;
-                }
-
-                if (state.transform == targetModel)
-                    continue;
-
-                state.transform.localPosition =
-                    Vector3.LerpUnclamped(
-                        draggableStartPositions[i],
-                        state.initialLocalPosition,
-                        easedTime
-                    );
-
-                state.transform.localRotation =
-                    Quaternion.SlerpUnclamped(
-                        draggableStartRotations[i],
-                        state.initialLocalRotation,
-                        easedTime
-                    );
-
-                state.transform.localScale =
-                    Vector3.LerpUnclamped(
-                        draggableStartScales[i],
-                        state.initialLocalScale,
-                        easedTime
-                    );
+                state.transform.localPosition = Vector3.LerpUnclamped(draggableStartPositions[i], state.initialLocalPosition, easedTime);
+                state.transform.localRotation = Quaternion.SlerpUnclamped(draggableStartRotations[i], state.initialLocalRotation, easedTime);
+                state.transform.localScale = Vector3.LerpUnclamped(draggableStartScales[i], state.initialLocalScale, easedTime);
             }
 
             yield return null;
@@ -1125,103 +825,64 @@ public class ModelControlsManager : MonoBehaviour
         ApplyInitialDraggableTransforms();
 
         selectedModel = null;
-
         isResetting = false;
         resetCoroutine = null;
     }
 
+    // Reparents draggables without changing their visual world transform.
     private void RestoreOriginalParentsKeepingWorldTransform()
     {
-        for (int i = 0;
-             i < draggableInitialStates.Count;
-             i++)
+        for (int i = 0; i < draggableInitialStates.Count; i++)
         {
-            DraggableInitialState state =
-                draggableInitialStates[i];
+            DraggableInitialState state = draggableInitialStates[i];
+            if (state == null || state.transform == null) continue;
 
-            if (state == null ||
-                state.transform == null)
-            {
-                continue;
-            }
+            if (state.clickable != null) state.clickable.EndDrag();
 
-            if (state.clickable != null)
+            if (state.transform.parent != state.initialParent)
             {
-                state.clickable.EndDrag();
-            }
-
-            if (state.transform.parent !=
-                state.initialParent)
-            {
-                state.transform.SetParent(
-                    state.initialParent,
-                    true
-                );
+                state.transform.SetParent(state.initialParent, true);
             }
 
             RestoreModelColliders(state.transform);
         }
     }
 
+    // Applies the stored original local transform values directly to the target.
     private void ApplyInitialTransform()
     {
-        targetModel.localPosition =
-            initialLocalPosition;
-
-        targetModel.localRotation =
-            initialLocalRotation;
-
-        targetModel.localScale =
-            initialLocalScale;
-
+        targetModel.localPosition = initialLocalPosition;
+        targetModel.localRotation = initialLocalRotation;
+        targetModel.localScale = initialLocalScale;
         currentScaleMultiplier = 1f;
     }
 
+    // Applies the stored original local transform values to all draggables.
     private void ApplyInitialDraggableTransforms()
     {
-        for (int i = 0;
-             i < draggableInitialStates.Count;
-             i++)
+        for (int i = 0; i < draggableInitialStates.Count; i++)
         {
-            DraggableInitialState state =
-                draggableInitialStates[i];
+            DraggableInitialState state = draggableInitialStates[i];
+            if (state == null || state.transform == null) continue;
 
-            if (state == null ||
-                state.transform == null)
-            {
-                continue;
-            }
+            if (state.clickable != null) state.clickable.EndDrag();
 
-            if (state.clickable != null)
+            if (state.transform.parent != state.initialParent)
             {
-                state.clickable.EndDrag();
-            }
-
-            if (state.transform.parent !=
-                state.initialParent)
-            {
-                state.transform.SetParent(
-                    state.initialParent,
-                    false
-                );
+                state.transform.SetParent(state.initialParent, false);
             }
 
             RestoreModelColliders(state.transform);
 
-            if (state.transform == targetModel)
-                continue;
+            if (state.transform == targetModel) continue;
 
-            state.transform.localPosition =
-                state.initialLocalPosition;
-
-            state.transform.localRotation =
-                state.initialLocalRotation;
-
-            state.transform.localScale =
-                state.initialLocalScale;
+            state.transform.localPosition = state.initialLocalPosition;
+            state.transform.localRotation = state.initialLocalRotation;
+            state.transform.localScale = state.initialLocalScale;
         }
     }
 
+    // Stops the reset animation and calculates the new scale multiplier.
     private void CancelReset()
     {
         if (resetCoroutine != null)
@@ -1231,7 +892,6 @@ public class ModelControlsManager : MonoBehaviour
         }
 
         isResetting = false;
-
         CalculateCurrentScaleMultiplier();
     }
 
@@ -1239,16 +899,14 @@ public class ModelControlsManager : MonoBehaviour
     // SCALE MULTIPLIER
     // =========================================================
 
+    // Recalculates the scale multiplier using the current active target.
     private void CalculateCurrentScaleMultiplier()
     {
-        CalculateCurrentScaleMultiplierForTarget(
-            GetScaleTarget()
-        );
+        CalculateCurrentScaleMultiplierForTarget(GetScaleTarget());
     }
 
-    private void CalculateCurrentScaleMultiplierForTarget(
-        Transform model
-    )
+    // Recalculates and clamps the current scale multiplier based on absolute limits.
+    private void CalculateCurrentScaleMultiplierForTarget(Transform model)
     {
         if (model == null)
         {
@@ -1256,11 +914,8 @@ public class ModelControlsManager : MonoBehaviour
             return;
         }
 
-        Vector3 baseWorldScale =
-            GetInitialWorldScaleForTransform(model);
-
-        float initialMagnitude =
-            baseWorldScale.magnitude;
+        Vector3 baseWorldScale = GetInitialWorldScaleForTransform(model);
+        float initialMagnitude = baseWorldScale.magnitude;
 
         if (initialMagnitude <= 0.0001f)
         {
@@ -1268,174 +923,114 @@ public class ModelControlsManager : MonoBehaviour
             return;
         }
 
-        currentScaleMultiplier =
-            model.lossyScale.magnitude /
-            initialMagnitude;
+        currentScaleMultiplier = model.lossyScale.magnitude / initialMagnitude;
 
-        currentScaleMultiplier =
-            Mathf.Clamp(
-                currentScaleMultiplier,
-                minimumScaleMultiplier,
-                maximumScaleMultiplier
-            );
+        float baseScaleValue = Mathf.Abs(baseWorldScale.x) > 0.0001f ? Mathf.Abs(baseWorldScale.x) : 1f;
+        float minMult = absoluteMinimumScale / baseScaleValue;
+        float maxMult = absoluteMaximumScale / baseScaleValue;
+
+        currentScaleMultiplier = Mathf.Clamp(currentScaleMultiplier, minMult, maxMult);
     }
 
     // =========================================================
     // SAVE INITIAL TRANSFORMS
     // =========================================================
 
+    // Saves the initial position, rotation, and scale of the target model.
     public void SaveInitialTransform()
     {
-        if (targetModel == null)
-            return;
+        if (targetModel == null) return;
 
-        initialLocalPosition =
-            targetModel.localPosition;
-
-        initialLocalRotation =
-            targetModel.localRotation;
-
-        initialLocalScale =
-            targetModel.localScale;
-
-        initialWorldScale =
-            targetModel.lossyScale;
+        initialLocalPosition = targetModel.localPosition;
+        initialLocalRotation = targetModel.localRotation;
+        initialLocalScale = targetModel.localScale;
+        initialWorldScale = targetModel.lossyScale;
 
         currentScaleMultiplier = 1f;
     }
 
+    // Saves the initial transform data for all configured draggables.
     private void SaveInitialDraggableTransforms()
     {
         draggableInitialStates.Clear();
+        HashSet<VR3DClickable> uniqueClickables = new HashSet<VR3DClickable>();
 
-        HashSet<VR3DClickable> uniqueClickables =
-            new HashSet<VR3DClickable>();
-
-        if (autoFindDraggableModels &&
-            targetModel != null)
+        if (autoFindDraggableModels && targetModel != null)
         {
-            VR3DClickable[] found =
-                targetModel.GetComponentsInChildren<VR3DClickable>(true);
-
+            VR3DClickable[] found = targetModel.GetComponentsInChildren<VR3DClickable>(true);
             foreach (VR3DClickable clickable in found)
             {
-                if (clickable != null)
-                {
-                    uniqueClickables.Add(
-                        clickable
-                    );
-                }
+                if (clickable != null) uniqueClickables.Add(clickable);
             }
         }
 
         if (extraDraggableModels != null)
         {
-            foreach (VR3DClickable clickable
-                     in extraDraggableModels)
+            foreach (VR3DClickable clickable in extraDraggableModels)
             {
-                if (clickable != null)
-                {
-                    uniqueClickables.Add(
-                        clickable
-                    );
-                }
+                if (clickable != null) uniqueClickables.Add(clickable);
             }
         }
 
-        foreach (VR3DClickable clickable
-                 in uniqueClickables)
+        foreach (VR3DClickable clickable in uniqueClickables)
         {
-            Transform draggableTransform =
-                clickable.transform;
-
-            draggableInitialStates.Add(
-                new DraggableInitialState
-                {
-                    clickable = clickable,
-
-                    transform =
-                        draggableTransform,
-
-                    initialParent =
-                        draggableTransform.parent,
-
-                    initialLocalPosition =
-                        draggableTransform.localPosition,
-
-                    initialLocalRotation =
-                        draggableTransform.localRotation,
-
-                    initialLocalScale =
-                        draggableTransform.localScale,
-
-                    initialWorldScale =
-                        draggableTransform.lossyScale
-                }
-            );
+            Transform draggableTransform = clickable.transform;
+            draggableInitialStates.Add(new DraggableInitialState
+            {
+                clickable = clickable,
+                transform = draggableTransform,
+                initialParent = draggableTransform.parent,
+                initialLocalPosition = draggableTransform.localPosition,
+                initialLocalRotation = draggableTransform.localRotation,
+                initialLocalScale = draggableTransform.localScale,
+                initialWorldScale = draggableTransform.lossyScale
+            });
         }
     }
 
-    private DraggableInitialState FindInitialState(
-        Transform model
-    )
+    // Locates the saved initial state for a specified model.
+    private DraggableInitialState FindInitialState(Transform model)
     {
-        if (model == null)
-            return null;
+        if (model == null) return null;
 
-        for (int i = 0;
-             i < draggableInitialStates.Count;
-             i++)
+        for (int i = 0; i < draggableInitialStates.Count; i++)
         {
-            DraggableInitialState state =
-                draggableInitialStates[i];
-
-            if (state != null &&
-                state.transform == model)
-            {
-                return state;
-            }
+            DraggableInitialState state = draggableInitialStates[i];
+            if (state != null && state.transform == model) return state;
         }
 
         return null;
     }
 
+    // Exposes resaving functionality to the editor context menu.
     [ContextMenu("Resave Drag Initial Transforms")]
     public void ResaveDragInitialTransforms()
     {
         SaveInitialDraggableTransforms();
     }
 
-
     // =========================================================
     // COLLIDERS WHILE MODEL IS ATTACHED
     // =========================================================
 
+    // Disables and caches the states of colliders on a model.
     private void DisableModelColliders(Transform model)
     {
-        if (model == null)
-            return;
+        if (model == null) return;
+        if (savedColliderStates.ContainsKey(model)) return;
 
-        if (savedColliderStates.ContainsKey(model))
-            return;
-
-        Collider[] colliders =
-            model.GetComponentsInChildren<Collider>(true);
-
-        List<ColliderState> states =
-            new List<ColliderState>();
+        Collider[] colliders = model.GetComponentsInChildren<Collider>(true);
+        List<ColliderState> states = new List<ColliderState>();
 
         foreach (Collider col in colliders)
         {
-            if (col == null)
-                continue;
+            if (col == null) continue;
 
-            states.Add(
-                new ColliderState
-                {
-                    collider = col,
-                    wasEnabled = col.enabled
-                }
-            );
+            states.Add(new ColliderState
+            {
+                collider = col,
+                wasEnabled = col.enabled
+            });
 
             col.enabled = false;
         }
@@ -1443,54 +1038,41 @@ public class ModelControlsManager : MonoBehaviour
         savedColliderStates.Add(model, states);
     }
 
+    // Restores cached collider states to a model.
     private void RestoreModelColliders(Transform model)
     {
-        if (model == null)
-            return;
+        if (model == null) return;
 
-        if (!savedColliderStates.TryGetValue(
-                model,
-                out List<ColliderState> states))
+        if (!savedColliderStates.TryGetValue(model, out List<ColliderState> states))
         {
             return;
         }
 
         foreach (ColliderState state in states)
         {
-            if (state == null ||
-                state.collider == null)
-            {
-                continue;
-            }
-
-            state.collider.enabled =
-                state.wasEnabled;
+            if (state == null || state.collider == null) continue;
+            state.collider.enabled = state.wasEnabled;
         }
 
         savedColliderStates.Remove(model);
     }
 
+    // Restores colliders for all models that were previously disabled.
     private void RestoreAllSavedColliders()
     {
-        List<Transform> models =
-            new List<Transform>(
-                savedColliderStates.Keys
-            );
-
+        List<Transform> models = new List<Transform>(savedColliderStates.Keys);
         foreach (Transform model in models)
         {
             RestoreModelColliders(model);
         }
     }
 
+    // Interrupts the hand attach animation if currently active.
     private void CancelHandAttach()
     {
         if (handAttachCoroutine != null)
         {
-            StopCoroutine(
-                handAttachCoroutine
-            );
-
+            StopCoroutine(handAttachCoroutine);
             handAttachCoroutine = null;
         }
 
@@ -1501,6 +1083,7 @@ public class ModelControlsManager : MonoBehaviour
     // STOP / CLEANUP
     // =========================================================
 
+    // Resets press counts for all inputs.
     private void StopAllActions()
     {
         rotateRightPressCount = 0;
@@ -1509,6 +1092,7 @@ public class ModelControlsManager : MonoBehaviour
         scaleDownPressCount = 0;
     }
 
+    // Instantly halts scaling and rotation velocities.
     private void StopMovementImmediately()
     {
         currentRotationSpeed = 0f;
@@ -1518,6 +1102,7 @@ public class ModelControlsManager : MonoBehaviour
         scaleSmoothVelocity = 0f;
     }
 
+    // Cleans up states and coroutines when the script is disabled.
     private void OnDisable()
     {
         StopAllActions();
@@ -1534,28 +1119,22 @@ public class ModelControlsManager : MonoBehaviour
         isResetting = false;
     }
 
+    // Removes UI events when the script is destroyed.
     private void OnDestroy()
     {
         RemoveCreatedTriggerEntries();
     }
 
+    // Clears dynamic event triggers from registered bindings.
     private void RemoveCreatedTriggerEntries()
     {
-        foreach (TriggerBinding binding
-                 in triggerBindings)
+        foreach (TriggerBinding binding in triggerBindings)
         {
-            if (binding.eventTrigger == null ||
-                binding.eventTrigger.triggers == null)
-            {
-                continue;
-            }
+            if (binding.eventTrigger == null || binding.eventTrigger.triggers == null) continue;
 
-            foreach (EventTrigger.Entry entry
-                     in binding.entries)
+            foreach (EventTrigger.Entry entry in binding.entries)
             {
-                binding.eventTrigger.triggers.Remove(
-                    entry
-                );
+                binding.eventTrigger.triggers.Remove(entry);
             }
         }
 
