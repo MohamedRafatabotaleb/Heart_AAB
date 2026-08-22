@@ -15,13 +15,29 @@ public class ModelControlsManager : MonoBehaviour
         RotateRight, RotateLeft, ScaleUp, ScaleDown, AttachToHand, ReleaseFromHand, Reset
     }
 
+    // Enum defining the point the model rotates around.
+    public enum RotationPivotMode
+    {
+        // Rotates around the Transform pivot (default Unity behaviour).
+        TransformPivot,
+
+        // Rotates around the visual center of all renderers.
+        RendererBoundsCenter,
+
+        // Rotates around another Transform in the scene.
+        CustomTransform,
+
+        // Rotates around a manual local offset from the Transform pivot.
+        CustomLocalOffset
+    }
+
     // Group mapping an action to a list of UI buttons.
     [Serializable]
     public class ButtonControlGroup
     {
         // The action assigned to these buttons.
         public ControlAction controlAction;
-        
+
         // The list of buttons that trigger this action.
         public List<Button> buttons = new List<Button>();
     }
@@ -31,7 +47,7 @@ public class ModelControlsManager : MonoBehaviour
     {
         // The EventTrigger component on the UI element.
         public EventTrigger eventTrigger;
-        
+
         // The list of active trigger entries.
         public List<EventTrigger.Entry> entries = new List<EventTrigger.Entry>();
     }
@@ -41,7 +57,7 @@ public class ModelControlsManager : MonoBehaviour
     {
         // Reference to the draggable component.
         public VR3DClickable clickable;
-        
+
         // The transform of the draggable object.
         public Transform transform;
 
@@ -50,13 +66,13 @@ public class ModelControlsManager : MonoBehaviour
 
         // The original local position.
         public Vector3 initialLocalPosition;
-        
+
         // The original local rotation.
         public Quaternion initialLocalRotation;
-        
+
         // The original local scale.
         public Vector3 initialLocalScale;
-        
+
         // The original world scale.
         public Vector3 initialWorldScale;
     }
@@ -66,7 +82,7 @@ public class ModelControlsManager : MonoBehaviour
     {
         // The collider component.
         public Collider collider;
-        
+
         // Whether the collider was enabled originally.
         public bool wasEnabled;
     }
@@ -106,20 +122,39 @@ public class ModelControlsManager : MonoBehaviour
     // Rotation speed multiplier.
     [Header("Rotation Settings")]
     [SerializeField] private float rotationSpeed = 100f;
-    
+
     // The axis around which the model rotates.
     [SerializeField] private Vector3 rotationAxis = Vector3.up;
-    
+
     // Determines if rotation happens in local or world space.
     [SerializeField] private bool useLocalRotation = true;
-    
+
     // Reverses the rotation direction if enabled.
     [SerializeField] private bool invertRotationDirection = false;
+
+    // Defines what point the model rotates around.
+    [Header("Rotation Pivot")]
+    [SerializeField] private RotationPivotMode rotationPivotMode = RotationPivotMode.RendererBoundsCenter;
+
+    // Optional transform used as the pivot when Custom Transform mode is selected.
+    [SerializeField] private Transform customRotationPivot;
+
+    // Optional local offset used as the pivot when Custom Local Offset mode is selected.
+    [SerializeField] private Vector3 customRotationPivotLocalOffset = Vector3.zero;
+
+    // Includes disabled renderers when calculating the bounds center.
+    [SerializeField] private bool includeInactiveRenderers = true;
+
+    // Scales the model around the same pivot instead of the transform pivot.
+    [SerializeField] private bool scaleAroundRotationPivot = true;
+
+    // Draws the pivot point in the Scene view while this object is selected.
+    [SerializeField] private bool showRotationPivotGizmo = true;
 
     // Time it takes to reach full rotation speed.
     [Header("Rotation Ease Settings")]
     [SerializeField] private float rotationEaseInTime = 0.2f;
-    
+
     // Time it takes to stop rotating after releasing.
     [SerializeField] private float rotationEaseOutTime = 0.4f;
 
@@ -150,7 +185,7 @@ public class ModelControlsManager : MonoBehaviour
     // Time it takes to reach full scale speed.
     [Header("Scale Ease Settings")]
     [SerializeField] private float scaleEaseInTime = 0.2f;
-    
+
     // Time it takes to stop scaling after releasing.
     [SerializeField] private float scaleEaseOutTime = 0.4f;
 
@@ -173,13 +208,13 @@ public class ModelControlsManager : MonoBehaviour
 
     // Tracks the original local position of the target model.
     private Vector3 initialLocalPosition;
-    
+
     // Tracks the original local rotation of the target model.
     private Quaternion initialLocalRotation;
-    
+
     // Tracks the original local scale of the target model.
     private Vector3 initialLocalScale;
-    
+
     // Tracks the original world scale of the target model.
     private Vector3 initialWorldScale;
 
@@ -188,37 +223,37 @@ public class ModelControlsManager : MonoBehaviour
 
     // Counts active presses for rotating right.
     private int rotateRightPressCount;
-    
+
     // Counts active presses for rotating left.
     private int rotateLeftPressCount;
-    
+
     // Counts active presses for scaling up.
     private int scaleUpPressCount;
-    
+
     // Counts active presses for scaling down.
     private int scaleDownPressCount;
 
     // Current speed of rotation taking ease into account.
     private float currentRotationSpeed;
-    
+
     // Internal velocity tracker for smooth damping rotation.
     private float rotationSmoothVelocity;
 
     // Current speed of scaling taking ease into account.
     private float currentScaleSpeed;
-    
+
     // Internal velocity tracker for smooth damping scaling.
     private float scaleSmoothVelocity;
 
     // Reference to the active reset coroutine.
     private Coroutine resetCoroutine;
-    
+
     // Flag indicating if a reset animation is playing.
     private bool isResetting;
 
     // Reference to the active hand attach coroutine.
     private Coroutine handAttachCoroutine;
-    
+
     // Flag indicating if the hand attach animation is playing.
     private bool isAttachingToHand;
 
@@ -234,6 +269,9 @@ public class ModelControlsManager : MonoBehaviour
     // Dictionary mapping models to their saved collider states.
     private readonly Dictionary<Transform, List<ColliderState>> savedColliderStates = new Dictionary<Transform, List<ColliderState>>();
 
+    // Dictionary caching the local space bounds center of every model.
+    private readonly Dictionary<Transform, Vector3> cachedLocalBoundsCenters = new Dictionary<Transform, Vector3>();
+
     // Called when the script instance is being loaded.
     private void Awake()
     {
@@ -244,6 +282,7 @@ public class ModelControlsManager : MonoBehaviour
             return;
         }
 
+        ClearRotationPivotCache();
         SaveInitialTransform();
         SaveInitialDraggableTransforms();
         SetupButtons();
@@ -275,7 +314,7 @@ public class ModelControlsManager : MonoBehaviour
         isStartingScale = true;
         float elapsedTime = 0f;
         float startMultiplier = currentScaleMultiplier;
-        
+
         float baseScale = Mathf.Abs(initialWorldScale.x) > 0.0001f ? Mathf.Abs(initialWorldScale.x) : 1f;
         float targetMultiplier = targetStartScale / baseScale;
 
@@ -291,14 +330,14 @@ public class ModelControlsManager : MonoBehaviour
 
             currentScaleMultiplier = Mathf.Lerp(startMultiplier, targetMultiplier, easedTime);
             Vector3 desiredWorldScale = initialWorldScale * currentScaleMultiplier;
-            SetWorldScale(targetModel, desiredWorldScale);
+            ApplyWorldScaleKeepingPivot(targetModel, desiredWorldScale);
 
             yield return null;
         }
 
         currentScaleMultiplier = targetMultiplier;
-        SetWorldScale(targetModel, initialWorldScale * currentScaleMultiplier);
-        
+        ApplyWorldScaleKeepingPivot(targetModel, initialWorldScale * currentScaleMultiplier);
+
         initialLocalScale = targetModel.localScale;
         initialWorldScale = targetModel.lossyScale;
 
@@ -454,7 +493,7 @@ public class ModelControlsManager : MonoBehaviour
 
         SetWorldScale(model, preservedWorldScale);
         CalculateCurrentScaleMultiplierForTarget(model);
-        
+
         Debug.Log("Smoothly Attached To Hand: " + model.name, model.gameObject);
     }
 
@@ -564,7 +603,7 @@ public class ModelControlsManager : MonoBehaviour
     {
         EventTrigger.Entry entry = new EventTrigger.Entry();
         entry.eventID = eventType;
-        entry.callback.AddListener(delegate(BaseEventData eventData) { callback(eventData); });
+        entry.callback.AddListener(delegate (BaseEventData eventData) { callback(eventData); });
 
         binding.eventTrigger.triggers.Add(entry);
         binding.entries.Add(entry);
@@ -658,8 +697,253 @@ public class ModelControlsManager : MonoBehaviour
         Transform rotationTarget = GetRotationTarget();
         if (rotationTarget == null) return;
 
-        Space rotationSpace = useLocalRotation ? Space.Self : Space.World;
-        rotationTarget.Rotate(rotationAxis.normalized, currentRotationSpeed * Time.deltaTime, rotationSpace);
+        float rotationAngle = currentRotationSpeed * Time.deltaTime;
+
+        if (rotationPivotMode == RotationPivotMode.TransformPivot)
+        {
+            Space rotationSpace = useLocalRotation ? Space.Self : Space.World;
+            rotationTarget.Rotate(rotationAxis.normalized, rotationAngle, rotationSpace);
+            return;
+        }
+
+        Vector3 pivotWorldPosition = GetRotationPivotWorldPosition(rotationTarget);
+        Vector3 worldAxis = GetRotationWorldAxis(rotationTarget);
+
+        Vector3 positionBeforeRotation = rotationTarget.position;
+
+        rotationTarget.RotateAround(pivotWorldPosition, worldAxis, rotationAngle);
+
+        NotifyDraggedModelMoved(rotationTarget, rotationTarget.position - positionBeforeRotation);
+    }
+
+    // =========================================================
+    // ROTATION PIVOT
+    // =========================================================
+
+    // Exposes the hand attach point so other scripts can read the hand rotation.
+    public Transform GetHandAttachPoint()
+    {
+        return handAttachPoint;
+    }
+
+    // Rotates any model using the current pivot settings.
+    public void RotateModelAroundPivot(Transform model, float angleDegrees)
+    {
+        if (model == null) return;
+        if (Mathf.Abs(angleDegrees) < 0.00001f) return;
+
+        if (rotationPivotMode == RotationPivotMode.TransformPivot)
+        {
+            Space rotationSpace = useLocalRotation ? Space.Self : Space.World;
+            model.Rotate(rotationAxis.normalized, angleDegrees, rotationSpace);
+            return;
+        }
+
+        model.RotateAround(
+            GetRotationPivotWorldPosition(model),
+            GetRotationWorldAxis(model),
+            angleDegrees
+        );
+    }
+
+    // Tells a dragged model that something else moved it.
+    private void NotifyDraggedModelMoved(Transform model, Vector3 positionDelta)
+    {
+        if (model == null) return;
+        if (positionDelta.sqrMagnitude < 0.0000001f) return;
+
+        VR3DClickable clickable = model.GetComponent<VR3DClickable>();
+
+        if (clickable == null) return;
+        if (!clickable.IsDragging()) return;
+
+        clickable.ApplyDragOffset(positionDelta);
+    }
+
+    // Returns the world axis the model should rotate around.
+    private Vector3 GetRotationWorldAxis(Transform model)
+    {
+        Vector3 axis = rotationAxis.normalized;
+
+        if (axis.sqrMagnitude < 0.000001f) axis = Vector3.up;
+
+        if (useLocalRotation && model != null)
+        {
+            axis = model.rotation * axis;
+        }
+
+        if (axis.sqrMagnitude < 0.000001f) return Vector3.up;
+
+        return axis.normalized;
+    }
+
+    // Returns the world position the model should rotate around.
+    private Vector3 GetRotationPivotWorldPosition(Transform model)
+    {
+        if (model == null) return Vector3.zero;
+
+        switch (rotationPivotMode)
+        {
+            case RotationPivotMode.CustomTransform:
+                if (customRotationPivot != null) return customRotationPivot.position;
+                return model.position;
+
+            case RotationPivotMode.CustomLocalOffset:
+                return model.TransformPoint(customRotationPivotLocalOffset);
+
+            case RotationPivotMode.RendererBoundsCenter:
+                return model.TransformPoint(GetLocalBoundsCenter(model));
+
+            default:
+                return model.position;
+        }
+    }
+
+    // Exposes the visual center of a model in world space.
+    public Vector3 GetModelBoundsCenterWorld(Transform model)
+    {
+        if (model == null) return Vector3.zero;
+
+        return model.TransformPoint(GetLocalBoundsCenter(model));
+    }
+
+    // Returns the cached local space center of a model, calculating it once.
+    private Vector3 GetLocalBoundsCenter(Transform model)
+    {
+        if (model == null) return Vector3.zero;
+
+        if (cachedLocalBoundsCenters.TryGetValue(model, out Vector3 cachedCenter))
+        {
+            return cachedCenter;
+        }
+
+        Vector3 center = CalculateLocalBoundsCenter(model);
+        cachedLocalBoundsCenters[model] = center;
+
+        return center;
+    }
+
+    // Calculates the visual center of all renderers in the model's local space.
+    private Vector3 CalculateLocalBoundsCenter(Transform model)
+    {
+        if (model == null) return Vector3.zero;
+
+        Renderer[] renderers = model.GetComponentsInChildren<Renderer>(includeInactiveRenderers);
+
+        if (renderers == null || renderers.Length == 0)
+        {
+            return Vector3.zero;
+        }
+
+        Matrix4x4 worldToLocal = model.worldToLocalMatrix;
+
+        bool hasBounds = false;
+        Bounds localBounds = new Bounds();
+
+        foreach (Renderer renderer in renderers)
+        {
+            if (renderer == null) continue;
+
+            Mesh mesh = GetStaticMeshFromRenderer(renderer);
+
+            if (mesh != null)
+            {
+                Matrix4x4 meshToLocal = worldToLocal * renderer.transform.localToWorldMatrix;
+                EncapsulateBoundsCorners(mesh.bounds, meshToLocal, ref localBounds, ref hasBounds);
+            }
+            else
+            {
+                EncapsulateBoundsCorners(renderer.bounds, worldToLocal, ref localBounds, ref hasBounds);
+            }
+        }
+
+        if (!hasBounds) return Vector3.zero;
+
+        return localBounds.center;
+    }
+
+    // Returns a usable mesh from a renderer, or null for skinned meshes.
+    private Mesh GetStaticMeshFromRenderer(Renderer renderer)
+    {
+        if (renderer is SkinnedMeshRenderer) return null;
+
+        MeshFilter meshFilter = renderer.GetComponent<MeshFilter>();
+
+        if (meshFilter == null) return null;
+
+        return meshFilter.sharedMesh;
+    }
+
+    // Transforms the 8 corners of a bounds and encapsulates them into a target bounds.
+    private void EncapsulateBoundsCorners(Bounds sourceBounds, Matrix4x4 matrix, ref Bounds targetBounds, ref bool hasBounds)
+    {
+        Vector3 boundsCenter = sourceBounds.center;
+        Vector3 boundsExtents = sourceBounds.extents;
+
+        for (int i = 0; i < 8; i++)
+        {
+            Vector3 corner = new Vector3(
+                boundsCenter.x + ((i & 1) == 0 ? -boundsExtents.x : boundsExtents.x),
+                boundsCenter.y + ((i & 2) == 0 ? -boundsExtents.y : boundsExtents.y),
+                boundsCenter.z + ((i & 4) == 0 ? -boundsExtents.z : boundsExtents.z)
+            );
+
+            Vector3 transformedCorner = matrix.MultiplyPoint3x4(corner);
+
+            if (!hasBounds)
+            {
+                targetBounds = new Bounds(transformedCorner, Vector3.zero);
+                hasBounds = true;
+            }
+            else
+            {
+                targetBounds.Encapsulate(transformedCorner);
+            }
+        }
+    }
+
+    // Applies a world scale while keeping the rotation pivot in place.
+    private void ApplyWorldScaleKeepingPivot(Transform model, Vector3 desiredWorldScale)
+    {
+        if (model == null) return;
+
+        if (!scaleAroundRotationPivot || rotationPivotMode == RotationPivotMode.TransformPivot)
+        {
+            SetWorldScale(model, desiredWorldScale);
+            return;
+        }
+
+        Vector3 pivotBeforeScale = GetRotationPivotWorldPosition(model);
+
+        SetWorldScale(model, desiredWorldScale);
+
+        Vector3 pivotAfterScale = GetRotationPivotWorldPosition(model);
+
+        Vector3 positionDelta = pivotBeforeScale - pivotAfterScale;
+
+        model.position += positionDelta;
+
+        NotifyDraggedModelMoved(model, positionDelta);
+    }
+
+    // Clears the cached centers so they are recalculated on the next frame.
+    [ContextMenu("Recalculate Rotation Pivots")]
+    public void ClearRotationPivotCache()
+    {
+        cachedLocalBoundsCenters.Clear();
+    }
+
+    // Draws the current rotation pivot in the Scene view.
+    private void OnDrawGizmosSelected()
+    {
+        if (!showRotationPivotGizmo) return;
+        if (!Application.isPlaying) return;
+
+        Transform gizmoTarget = GetRotationTarget();
+        if (gizmoTarget == null) return;
+
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(GetRotationPivotWorldPosition(gizmoTarget), 0.03f);
     }
 
     // =========================================================
@@ -719,7 +1003,7 @@ public class ModelControlsManager : MonoBehaviour
         }
 
         Vector3 desiredWorldScale = baseWorldScale * currentScaleMultiplier;
-        SetWorldScale(scaleTarget, desiredWorldScale);
+        ApplyWorldScaleKeepingPivot(scaleTarget, desiredWorldScale);
     }
 
     // Returns the original world scale of a given transform.

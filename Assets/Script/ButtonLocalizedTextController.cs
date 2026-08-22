@@ -22,6 +22,13 @@ public class ButtonTextController : MonoBehaviour
         [Tooltip("The 3D model both the Line and Button will follow.")]
         public Transform targetModel;
 
+        [Header("Drag Source (Optional)")]
+        [Tooltip(
+            "The VR3DClickable that controls visibility. " +
+            "If empty, it is searched on the Target Model or on its parents."
+        )]
+        public VR3DClickable dragSource;
+
         [Header("Follow Scale")]
         public bool followScale = true;
 
@@ -40,6 +47,8 @@ public class ButtonTextController : MonoBehaviour
         [HideInInspector] public Transform initializedLine;
         [HideInInspector] public Transform initializedButton;
         [HideInInspector] public bool initialized;
+
+        [HideInInspector] public VR3DClickable cachedDragSource;
     }
 
     [Serializable]
@@ -75,6 +84,78 @@ public class ButtonTextController : MonoBehaviour
     [Header("Camera")]
     public Camera targetCamera;
 
+    // =========================================================
+    // VISIBILITY
+    // =========================================================
+
+    public enum ToggleButtonMode
+    {
+        // The button turns the Labels ON and OFF.
+        EnableOrDisableLabels,
+
+        // The button forces every Label to show, then hides them all.
+        ShowAllOrHideAll
+    }
+
+    public enum LabelVisibilityMode
+    {
+        // The Button and the Line show ONLY while the model is being dragged.
+        OnlyWhileDragging,
+
+        // The Button and the Line stay visible after the drag,
+        // until another model is dragged or a Reset happens.
+        StayVisibleUntilOtherModelOrReset
+    }
+
+    [Header("Visibility")]
+    [Tooltip("Hide every Button and Line when the scene starts.")]
+    public bool hideOnStart = true;
+
+    [Tooltip("How the Button and the Line behave after you release the model.")]
+    public LabelVisibilityMode visibilityMode =
+        LabelVisibilityMode.StayVisibleUntilOtherModelOrReset;
+
+    [Tooltip(
+        "Used to read the currently selected model. " +
+        "If empty, it will be found automatically."
+    )]
+    public ModelControlsManager modelControlsManager;
+
+    [Header("Show / Hide Label Button")]
+    [Tooltip("Optional: one global Button that controls all the Labels.")]
+    public Button toggleAllButton;
+
+    [Tooltip(
+        "Enable Or Disable Labels = SHOW works normally with the drag, " +
+        "HIDE never shows anything. " +
+        "Show All Or Hide All = SHOW forces every Label to appear."
+    )]
+    public ToggleButtonMode toggleButtonMode = ToggleButtonMode.EnableOrDisableLabels;
+
+    [Tooltip("Master switch. When OFF no Label can appear at all.")]
+    public bool labelsEnabled = true;
+
+    [Tooltip("Image that changes its Source Image. If empty, the Button image is used.")]
+    public Image toggleButtonImage;
+
+    [Tooltip("Source Image used while the Labels are ON.")]
+    public Sprite showStateSprite;
+
+    [Tooltip("Source Image used while the Labels are OFF.")]
+    public Sprite hideStateSprite;
+
+    // TRUE = force show everything (even without drag / selection).
+    private bool showAllOverride;
+
+    // TRUE = force hide everything, even if a model is selected.
+    private bool forceHide;
+
+    // The selection that was active when Force Hide started.
+    private Transform forceHideSelection;
+
+    // Local fallback selection when there is no ModelControlsManager.
+    private Transform localSelectedModel;
+
     [Header("Button Groups")]
     public List<ButtonTextItem> items = new List<ButtonTextItem>();
 
@@ -100,6 +181,28 @@ public class ButtonTextController : MonoBehaviour
         InitializeAll();
 
         ResizeTextAndBackground();
+
+        if (modelControlsManager == null)
+        {
+            modelControlsManager =
+                FindFirstObjectByType<ModelControlsManager>();
+        }
+
+        if (toggleAllButton != null)
+        {
+            toggleAllButton.onClick.AddListener(ToggleAllButtonsAndLines);
+        }
+
+        RefreshToggleButtonImage();
+
+        if (hideOnStart)
+        {
+            showAllOverride = false;
+            forceHide = false;
+            localSelectedModel = null;
+
+            SetVisibilityForAll(false);
+        }
     }
 
     private void LateUpdate()
@@ -108,6 +211,8 @@ public class ButtonTextController : MonoBehaviour
             targetCamera = Camera.main;
 
         UpdateAll();
+
+        UpdateVisibility();
     }
 
     private void InitializeAll()
@@ -178,6 +283,8 @@ public class ButtonTextController : MonoBehaviour
         follow.initializedLine = lineTransform;
         follow.initializedButton = buttonTransform;
         follow.initialized = true;
+
+        ResolveDragSource(follow);
     }
 
     private void UpdateAll()
@@ -256,6 +363,356 @@ public class ButtonTextController : MonoBehaviour
                 }
             }
         }
+    }
+
+    // =========================================================
+    // SHOW / HIDE
+    // =========================================================
+
+    // Finds the VR3DClickable that drives this Button + Line.
+    private VR3DClickable ResolveDragSource(FollowButton follow)
+    {
+        if (follow == null)
+            return null;
+
+        if (follow.dragSource != null)
+            return follow.dragSource;
+
+        if (follow.cachedDragSource != null)
+            return follow.cachedDragSource;
+
+        if (follow.targetModel == null)
+            return null;
+
+        follow.cachedDragSource =
+            follow.targetModel.GetComponentInParent<VR3DClickable>();
+
+        return follow.cachedDragSource;
+    }
+
+    // Returns TRUE while the model of this element is being dragged.
+    private bool IsFollowDragging(FollowButton follow)
+    {
+        VR3DClickable clickable = ResolveDragSource(follow);
+
+        if (clickable == null)
+            return false;
+
+        return clickable.IsDragging();
+    }
+
+    // Returns the model that is currently selected, or null.
+    private Transform GetSelectedModel()
+    {
+        if (modelControlsManager != null)
+        {
+            return modelControlsManager.GetSelectedModel();
+        }
+
+        return localSelectedModel;
+    }
+
+    // Returns TRUE if this element belongs to the selected model.
+    private bool IsFollowSelected(FollowButton follow, Transform selectedModel)
+    {
+        if (follow == null || selectedModel == null)
+            return false;
+
+        VR3DClickable clickable = ResolveDragSource(follow);
+
+        if (clickable != null && clickable.transform == selectedModel)
+            return true;
+
+        if (follow.targetModel != null)
+        {
+            if (follow.targetModel == selectedModel)
+                return true;
+
+            if (follow.targetModel.IsChildOf(selectedModel))
+                return true;
+        }
+
+        return false;
+    }
+
+    // Decides the visibility of every element, every frame.
+    private void UpdateVisibility()
+    {
+        bool anyDragging = false;
+
+        // Detect a new drag so the local fallback selection stays correct.
+        for (int i = 0; i < items.Count; i++)
+        {
+            for (int j = 0; j < items[i].buttons.Count; j++)
+            {
+                FollowButton follow = items[i].buttons[j];
+
+                if (follow == null)
+                    continue;
+
+                if (!IsFollowDragging(follow))
+                    continue;
+
+                anyDragging = true;
+
+                VR3DClickable clickable = ResolveDragSource(follow);
+
+                if (clickable != null)
+                {
+                    localSelectedModel = clickable.transform;
+                }
+            }
+        }
+
+        // Master switch: nothing can appear while the Labels are OFF.
+        if (!labelsEnabled)
+        {
+            SetVisibilityForAll(false);
+            return;
+        }
+
+        Transform selectedModel = GetSelectedModel();
+
+        // Force Hide is released when the selection changes,
+        // or when the current drag ends.
+        if (forceHide)
+        {
+            if (selectedModel != forceHideSelection || (!anyDragging && selectedModel == null))
+            {
+                forceHide = false;
+                forceHideSelection = null;
+            }
+        }
+
+        for (int i = 0; i < items.Count; i++)
+        {
+            for (int j = 0; j < items[i].buttons.Count; j++)
+            {
+                FollowButton follow = items[i].buttons[j];
+
+                if (follow == null)
+                    continue;
+
+                bool visible;
+
+                if (showAllOverride)
+                {
+                    visible = true;
+                }
+                else if (forceHide)
+                {
+                    visible = false;
+                }
+                else if (visibilityMode == LabelVisibilityMode.OnlyWhileDragging)
+                {
+                    visible = IsFollowDragging(follow);
+                }
+                else
+                {
+                    visible =
+                        IsFollowDragging(follow) ||
+                        IsFollowSelected(follow, selectedModel);
+                }
+
+                ApplyVisibility(follow, visible);
+            }
+        }
+    }
+
+    private void ApplyVisibility(FollowButton follow, bool visible)
+    {
+        if (follow == null)
+            return;
+
+        if (follow.button != null &&
+            follow.button.gameObject.activeSelf != visible)
+        {
+            follow.button.gameObject.SetActive(visible);
+        }
+
+        if (follow.line != null &&
+            follow.line.gameObject.activeSelf != visible)
+        {
+            follow.line.gameObject.SetActive(visible);
+        }
+    }
+
+    private void SetVisibilityForAll(bool visible)
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            for (int j = 0; j < items[i].buttons.Count; j++)
+            {
+                ApplyVisibility(items[i].buttons[j], visible);
+            }
+        }
+    }
+
+    // Global button. Its behaviour depends on Toggle Button Mode.
+    public void ToggleAllButtonsAndLines()
+    {
+        if (toggleButtonMode == ToggleButtonMode.EnableOrDisableLabels)
+        {
+            SetLabelsEnabled(!labelsEnabled);
+            return;
+        }
+
+        ToggleShowAll();
+    }
+
+    // Turns the Labels ON or OFF completely.
+    public void SetLabelsEnabled(bool enabled)
+    {
+        labelsEnabled = enabled;
+
+        if (!labelsEnabled)
+        {
+            showAllOverride = false;
+            forceHide = false;
+            forceHideSelection = null;
+
+            SetVisibilityForAll(false);
+        }
+
+        RefreshToggleButtonImage();
+
+        UpdateVisibility();
+    }
+
+    public void ShowLabels()
+    {
+        SetLabelsEnabled(true);
+    }
+
+    public void HideLabels()
+    {
+        SetLabelsEnabled(false);
+    }
+
+    public bool AreLabelsEnabled()
+    {
+        return labelsEnabled;
+    }
+
+    // Hides the Label of a model, used after a Snap for example.
+    public void HideLabelsForModel(Transform model)
+    {
+        if (model == null)
+            return;
+
+        if (localSelectedModel == model)
+        {
+            localSelectedModel = null;
+        }
+
+        if (modelControlsManager != null &&
+            modelControlsManager.GetSelectedModel() == model)
+        {
+            modelControlsManager.ClearSelectedModel();
+        }
+
+        UpdateVisibility();
+    }
+
+    // Swaps the Source Image of the toggle button.
+    private void RefreshToggleButtonImage()
+    {
+        Image image = toggleButtonImage;
+
+        if (image == null && toggleAllButton != null)
+        {
+            image = toggleAllButton.image != null
+                ? toggleAllButton.image
+                : toggleAllButton.GetComponent<Image>();
+        }
+
+        if (image == null)
+            return;
+
+        bool showingState =
+            toggleButtonMode == ToggleButtonMode.EnableOrDisableLabels
+                ? labelsEnabled
+                : showAllOverride;
+
+        Sprite sprite = showingState ? showStateSprite : hideStateSprite;
+
+        if (sprite != null)
+        {
+            image.sprite = sprite;
+        }
+    }
+
+    // First press shows everything, second press hides everything.
+    private void ToggleShowAll()
+    {
+        if (showAllOverride)
+        {
+            showAllOverride = false;
+            forceHide = true;
+            forceHideSelection = GetSelectedModel();
+        }
+        else
+        {
+            showAllOverride = true;
+            forceHide = false;
+            forceHideSelection = null;
+        }
+
+        RefreshToggleButtonImage();
+
+        UpdateVisibility();
+    }
+
+    // Forces everything visible.
+    public void ShowAllButtonsAndLines()
+    {
+        showAllOverride = true;
+        forceHide = false;
+        forceHideSelection = null;
+
+        UpdateVisibility();
+    }
+
+    // Forces everything hidden, even while dragging or selected.
+    public void HideAllButtonsAndLines()
+    {
+        showAllOverride = false;
+        forceHide = true;
+        forceHideSelection = GetSelectedModel();
+
+        UpdateVisibility();
+    }
+
+    // Goes back to the normal drag / selection behaviour.
+    public void UseDragVisibility()
+    {
+        showAllOverride = false;
+        forceHide = false;
+        forceHideSelection = null;
+
+        UpdateVisibility();
+    }
+
+    // Clears the selection so every Label hides again.
+    public void ClearSelectionAndHide()
+    {
+        localSelectedModel = null;
+
+        if (modelControlsManager != null)
+        {
+            modelControlsManager.ClearSelectedModel();
+        }
+
+        showAllOverride = false;
+        forceHide = false;
+        forceHideSelection = null;
+
+        SetVisibilityForAll(false);
+    }
+
+    public bool IsShowingAll()
+    {
+        return showAllOverride;
     }
 
     private void FaceButtonToCamera(FollowButton follow)
@@ -441,5 +898,11 @@ public class ButtonTextController : MonoBehaviour
             oldTopCenter - newTopCenter;
     }
 
-
+    private void OnDestroy()
+    {
+        if (toggleAllButton != null)
+        {
+            toggleAllButton.onClick.RemoveListener(ToggleAllButtonsAndLines);
+        }
+    }
 }
